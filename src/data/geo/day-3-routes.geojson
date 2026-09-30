@@ -1,0 +1,229 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "route-18",
+      "properties": {
+        "id": "route-18"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7774, 35.7138],
+          [139.5312, 35.3533]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-19",
+      "properties": {
+        "id": "route-19"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.5312, 35.3533],
+          [139.4874, 35.3113]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-20",
+      "properties": {
+        "id": "route-20"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.4874, 35.3113],
+          [139.4877, 35.3105]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-21",
+      "properties": {
+        "id": "route-21"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.4877, 35.3105],
+          [139.5004, 35.3067]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-22",
+      "properties": {
+        "id": "route-22"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.5004, 35.3067],
+          [139.5009, 35.3068]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-23",
+      "properties": {
+        "id": "route-23"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.5004, 35.3067],
+          [139.4877, 35.3105]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-24",
+      "properties": {
+        "id": "route-24"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.4877, 35.3105],
+          [139.4818, 35.3008]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-25",
+      "properties": {
+        "id": "route-25"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.4818, 35.3008],
+          [139.4803, 35.2995]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-26",
+      "properties": {
+        "id": "route-26"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.4803, 35.2995],
+          [139.4789, 35.2982]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-27",
+      "properties": {
+        "id": "route-27"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.4789, 35.2982],
+          [139.4877, 35.3105]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-28",
+      "properties": {
+        "id": "route-28"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.4877, 35.3105],
+          [139.5103, 35.306]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-29",
+      "properties": {
+        "id": "route-29"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.5103, 35.306],
+          [139.5362, 35.3113]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-30",
+      "properties": {
+        "id": "route-30"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.5362, 35.3113],
+          [139.5504, 35.319]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-31",
+      "properties": {
+        "id": "route-31"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.5362, 35.3113],
+          [139.5357, 35.3167]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-32",
+      "properties": {
+        "id": "route-32"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.5362, 35.3113],
+          [139.5331, 35.3125]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-33",
+      "properties": {
+        "id": "route-33"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.5504, 35.319],
+          [139.7774, 35.7138]
+        ]
+      }
+    }
+  ]
+}

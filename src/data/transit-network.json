@@ -1,0 +1,460 @@
+{
+  "title": "旅程精選交通圖",
+  "subtitle": "TOKYO · NARITA · KAMAKURA · ENOSHIMA",
+  "viewBox": [0, 0, 1100, 720],
+  "lines": [
+    {
+      "id": "yamanote",
+      "name": "JR 山手線",
+      "shortName": "JR 山手",
+      "color": "#80c241",
+      "path": "M 290 135 H 430 L 480 180 L 500 250 V 340 L 420 420 H 300 L 250 390 L 205 330 L 175 250 L 205 180 Z",
+      "days": [2, 3, 4]
+    },
+    {
+      "id": "ginza",
+      "name": "東京 Metro 銀座線",
+      "shortName": "銀座線",
+      "color": "#f39700",
+      "path": "M 250 390 L 310 350 H 390 L 440 310 V 220 L 480 180 H 600",
+      "days": [1, 2]
+    },
+    {
+      "id": "chuo-sobu",
+      "name": "JR 中央・總武線",
+      "shortName": "中央・總武",
+      "color": "#e5bd2f",
+      "path": "M 175 250 H 500",
+      "days": [4]
+    },
+    {
+      "id": "skyliner",
+      "name": "京成 Skyliner",
+      "shortName": "Skyliner",
+      "color": "#1676c4",
+      "path": "M 530 190 L 475 135 H 650 L 690 95 H 1010",
+      "days": [1]
+    },
+    {
+      "id": "keisei",
+      "name": "京成本線",
+      "shortName": "京成本線",
+      "color": "#c8921d",
+      "path": "M 530 190 H 650 L 720 240 H 880 L 930 190 V 95",
+      "days": [1, 5]
+    },
+    {
+      "id": "yokosuka",
+      "name": "JR 橫須賀線",
+      "shortName": "橫須賀線",
+      "color": "#1069a4",
+      "path": "M 500 340 L 420 420 V 480 L 500 560 L 700 630",
+      "days": [3]
+    },
+    {
+      "id": "shonan-monorail",
+      "name": "湘南單軌",
+      "shortName": "湘南單軌",
+      "color": "#d43d3d",
+      "path": "M 500 560 H 580 L 650 570 H 750",
+      "days": [3]
+    },
+    {
+      "id": "enoden",
+      "name": "江之電",
+      "shortName": "江之電",
+      "color": "#168b74",
+      "path": "M 900 520 L 850 570 L 790 610 L 780 650 L 750 680 L 700 630",
+      "days": [3]
+    }
+  ],
+  "walkLinks": [
+    {
+      "id": "ueno-keisei-ueno",
+      "from": [480, 180],
+      "to": [530, 190],
+      "label": "步行轉乘",
+      "days": [1, 5]
+    },
+    {
+      "id": "shonan-enoshima-enoshima",
+      "from": [750, 570],
+      "to": [790, 610],
+      "label": "步行轉乘",
+      "days": [3]
+    }
+  ],
+  "stations": [
+    {
+      "id": "ikebukuro",
+      "name": "池袋",
+      "x": 290,
+      "y": 135,
+      "position": "top",
+      "lines": ["yamanote"]
+    },
+    {
+      "id": "shinjuku",
+      "name": "新宿",
+      "x": 175,
+      "y": 250,
+      "position": "left",
+      "lines": ["yamanote", "chuo-sobu"],
+      "placeId": "shinjuku",
+      "transfer": true,
+      "journey": {
+        "days": [4],
+        "reason": "Day 4 的城市行程以新宿為核心，從住宿區搭 JR 進城後在這裡下車最方便。",
+        "toward": "東京都廳、歌舞伎町與新宿晚餐區。",
+        "tip": "新宿站範圍很大，先依目的地選西口或東口，可以少走很多路。"
+      }
+    },
+    {
+      "id": "harajuku",
+      "name": "原宿",
+      "x": 205,
+      "y": 330,
+      "position": "left",
+      "lines": ["yamanote"],
+      "placeId": "harajuku",
+      "journey": {
+        "days": [2],
+        "reason": "從住宿區搭 JR 到原宿，作為明治神宮與竹下通行程的起點。",
+        "toward": "明治神宮、竹下通，再步行前往表參道。",
+        "tip": "明治神宮靠表參道口；竹下通則使用竹下口較直覺。"
+      }
+    },
+    {
+      "id": "shibuya",
+      "name": "澀谷",
+      "x": 250,
+      "y": 390,
+      "position": "bottom",
+      "lines": ["yamanote", "ginza"],
+      "placeId": "shibuya-crossing",
+      "transfer": true,
+      "code": "G01",
+      "journey": {
+        "days": [2],
+        "reason": "原宿與表參道散步的終點設在澀谷，方便銜接十字路口與 SHIBUYA SKY。",
+        "toward": "澀谷十字路口、Center Street、SHIBUYA SKY。",
+        "tip": "回住宿區可依位置選 JR 山手線，或搭銀座線直達上野、淺草方向。"
+      }
+    },
+    {
+      "id": "omotesando",
+      "name": "表參道",
+      "x": 310,
+      "y": 350,
+      "position": "top",
+      "lines": ["ginza"],
+      "placeId": "omotesando",
+      "code": "G02",
+      "journey": {
+        "days": [2],
+        "reason": "Day 2 會從原宿一路步行到表參道；需要縮短步行時可從這裡搭銀座線。",
+        "toward": "繼續前往澀谷，或往上野、淺草方向返回住宿區。",
+        "tip": "這一段以步行逛街為主，地鐵作為體力或天候不佳時的備案。"
+      }
+    },
+    {
+      "id": "shinagawa",
+      "name": "品川",
+      "x": 420,
+      "y": 420,
+      "position": "left",
+      "lines": ["yamanote", "yokosuka"],
+      "transfer": true
+    },
+    {
+      "id": "tokyo",
+      "name": "東京",
+      "x": 500,
+      "y": 340,
+      "position": "bottom",
+      "lines": ["yamanote", "yokosuka"],
+      "transfer": true,
+      "journey": {
+        "days": [3],
+        "reason": "前往鎌倉時，東京站是從市區銜接 JR 橫須賀線的主要轉乘點之一。",
+        "toward": "搭 JR 橫須賀線往大船、鎌倉方向。",
+        "tip": "實際是否在東京站轉乘取決於住宿位置，當天以乘換案內結果為準。"
+      }
+    },
+    {
+      "id": "ginza",
+      "name": "銀座",
+      "x": 390,
+      "y": 350,
+      "position": "left",
+      "lines": ["ginza"],
+      "code": "G09"
+    },
+    {
+      "id": "nihombashi",
+      "name": "日本橋",
+      "x": 440,
+      "y": 310,
+      "position": "right",
+      "lines": ["ginza"],
+      "code": "G11"
+    },
+    {
+      "id": "akihabara",
+      "name": "秋葉原",
+      "x": 500,
+      "y": 250,
+      "position": "right",
+      "lines": ["yamanote", "chuo-sobu"],
+      "placeId": "akihabara",
+      "transfer": true,
+      "journey": {
+        "days": [4],
+        "reason": "秋葉原是 Day 4 前往新宿前的可選停留點，可由住宿區搭 JR 抵達。",
+        "toward": "停留後搭中央・總武線或其他 JR 路線前往新宿。",
+        "tip": "這站屬於可選安排，若 Day 4 時間不足可直接前往新宿。"
+      }
+    },
+    {
+      "id": "ueno",
+      "name": "上野",
+      "x": 480,
+      "y": 180,
+      "position": "left",
+      "lines": ["yamanote", "ginza"],
+      "placeId": "ueno",
+      "transfer": true,
+      "code": "G16",
+      "journey": {
+        "days": [1, 2, 3, 4, 5],
+        "reason": "上野連接東京 Metro 與 JR，是這趟住宿區候選中最重要的交通樞紐。",
+        "toward": "由此分流至淺草、原宿、新宿與鎌倉；往返機場需步行銜接京成上野。",
+        "tip": "京成上野與 JR／Metro 上野不是同一棟站體，圖上的虛線代表站外步行。"
+      }
+    },
+    {
+      "id": "keisei-ueno",
+      "name": "京成上野",
+      "x": 530,
+      "y": 190,
+      "position": "right",
+      "lines": ["skyliner", "keisei"],
+      "placeId": "ueno",
+      "journey": {
+        "days": [1, 5],
+        "reason": "往返成田機場時使用京成上野；它和 JR／Metro 上野之間需要走一小段路。",
+        "toward": "Day 1 搭 Skyliner 抵達；Day 5 可由此搭京成本線前往成田市區。",
+        "tip": "拖著行李轉乘時多留 10 至 15 分鐘，並依現場指標往 JR 或 Metro 上野站。"
+      }
+    },
+    {
+      "id": "nippori",
+      "name": "日暮里",
+      "x": 475,
+      "y": 135,
+      "position": "top",
+      "lines": ["yamanote", "skyliner"],
+      "transfer": true,
+      "journey": {
+        "days": [1],
+        "reason": "若飯店靠近 JR 山手線其他車站，可在日暮里從 Skyliner 轉乘 JR。",
+        "toward": "上野、秋葉原、新宿等山手線沿線。",
+        "tip": "住宿若在上野或淺草附近，直接搭到京成上野通常更簡單。"
+      }
+    },
+    {
+      "id": "asakusa",
+      "name": "淺草",
+      "x": 600,
+      "y": 180,
+      "position": "right",
+      "lines": ["ginza"],
+      "placeId": "asakusa-station",
+      "code": "G19",
+      "journey": {
+        "days": [1],
+        "reason": "抵達東京後搭銀座線到淺草，直接開始雷門、仲見世與淺草寺行程。",
+        "toward": "雷門、仲見世通、淺草寺與隅田川。",
+        "tip": "淺草有不同公司的車站，確認出口時要先看是銀座線還是都營淺草線。"
+      }
+    },
+    {
+      "id": "aoto",
+      "name": "青砥",
+      "x": 650,
+      "y": 190,
+      "position": "top",
+      "lines": ["keisei"],
+      "transfer": true
+    },
+    {
+      "id": "funabashi",
+      "name": "京成船橋",
+      "x": 720,
+      "y": 240,
+      "position": "bottom",
+      "lines": ["keisei"]
+    },
+    {
+      "id": "keisei-narita",
+      "name": "京成成田",
+      "x": 880,
+      "y": 240,
+      "position": "left",
+      "lines": ["keisei"],
+      "placeId": "keisei-narita",
+      "transfer": true,
+      "journey": {
+        "days": [5],
+        "reason": "回程先在成田市區下車，安排表參道、鰻魚飯與新勝寺，再前往機場。",
+        "toward": "成田山表參道、川豐鰻魚飯、新勝寺；參觀後再回站搭車去機場。",
+        "tip": "前往成田市區要選會停京成成田的京成本線列車；Skyliner 不停靠本站。"
+      }
+    },
+    {
+      "id": "narita-t2",
+      "name": "成田機場 T2・T3",
+      "x": 930,
+      "y": 95,
+      "position": "bottom",
+      "lines": ["skyliner", "keisei"],
+      "placeId": "narita-airport",
+      "transfer": true,
+      "journey": {
+        "days": [1, 5],
+        "reason": "本次去回程皆使用成田機場，這裡是機場鐵路與市區行程的銜接點。",
+        "toward": "Day 1 搭 Skyliner 前往上野；Day 5 從成田市區返回機場報到。",
+        "tip": "實際航廈與搭車站請以航空公司通知及當日機場資訊為準。"
+      }
+    },
+    {
+      "id": "narita-t1",
+      "name": "成田機場 T1",
+      "x": 1010,
+      "y": 95,
+      "position": "right",
+      "lines": ["skyliner", "keisei"],
+      "placeId": "narita-airport"
+    },
+    {
+      "id": "yokohama",
+      "name": "橫濱",
+      "x": 420,
+      "y": 480,
+      "position": "left",
+      "lines": ["yokosuka"],
+      "transfer": true
+    },
+    {
+      "id": "ofuna",
+      "name": "大船",
+      "x": 500,
+      "y": 560,
+      "position": "left",
+      "lines": ["yokosuka", "shonan-monorail"],
+      "placeId": "ofuna",
+      "transfer": true,
+      "journey": {
+        "days": [3],
+        "reason": "從東京搭 JR 到大船後轉乘湘南單軌，以空中路線前往江之島。",
+        "toward": "湘南江之島站；出站後步行轉乘江之電。",
+        "tip": "JR 與湘南單軌需要出閘轉乘，可順便在東口拍攝單軌列車。"
+      }
+    },
+    {
+      "id": "shonan-fukasawa",
+      "name": "湘南深澤",
+      "x": 650,
+      "y": 570,
+      "position": "top",
+      "lines": ["shonan-monorail"]
+    },
+    {
+      "id": "shonan-enoshima",
+      "name": "湘南江之島",
+      "x": 750,
+      "y": 570,
+      "position": "top",
+      "lines": ["shonan-monorail"],
+      "placeId": "shonan-enoshima",
+      "transfer": true,
+      "journey": {
+        "days": [3],
+        "reason": "湘南單軌的終點，從這裡下車後步行銜接江之電，進入海岸行程。",
+        "toward": "步行約一小段到江之電江之島站。",
+        "tip": "湘南江之島站與江之電江之島站是兩個不同站體，需要在地面步行。"
+      }
+    },
+    {
+      "id": "fujisawa",
+      "name": "藤澤",
+      "x": 900,
+      "y": 520,
+      "position": "right",
+      "lines": ["enoden"],
+      "transfer": true
+    },
+    {
+      "id": "enoshima",
+      "name": "江之島",
+      "x": 790,
+      "y": 610,
+      "position": "right",
+      "lines": ["enoden"],
+      "placeId": "enoden-enoshima",
+      "transfer": true,
+      "journey": {
+        "days": [3],
+        "reason": "在這裡搭江之電沿海岸移動，串聯鎌倉高校前、長谷與鎌倉。",
+        "toward": "先前往鎌倉高校前，再依行程折返江之島或繼續往鎌倉。",
+        "tip": "熱門時段月台與車廂較擁擠，移動時間要保留候車彈性。"
+      }
+    },
+    {
+      "id": "kamakurakoko",
+      "name": "鎌倉高校前",
+      "x": 780,
+      "y": 650,
+      "position": "right",
+      "lines": ["enoden"],
+      "placeId": "kamakurakoko",
+      "journey": {
+        "days": [3],
+        "reason": "為了前往平交道與海景拍攝點，在鎌倉高校前下車。",
+        "toward": "鎌倉高校前平交道與七里濱海岸。",
+        "tip": "拍攝時請留在人行區域並遵守現場交通引導。"
+      }
+    },
+    {
+      "id": "hase",
+      "name": "長谷",
+      "x": 750,
+      "y": 680,
+      "position": "bottom",
+      "lines": ["enoden"],
+      "placeId": "hase",
+      "journey": {
+        "days": [3],
+        "reason": "鎌倉大佛與長谷寺都從長谷站步行前往，時間足夠時在此下車。",
+        "toward": "鎌倉大佛、長谷寺，再回到江之電前往鎌倉。",
+        "tip": "這一站屬於可選安排，需依江之島停留時間決定。"
+      }
+    },
+    {
+      "id": "kamakura",
+      "name": "鎌倉",
+      "x": 700,
+      "y": 630,
+      "position": "left",
+      "lines": ["enoden", "yokosuka"],
+      "placeId": "kamakura",
+      "transfer": true,
+      "journey": {
+        "days": [3],
+        "reason": "海岸行程的收尾站，在這裡從江之電轉 JR 返回東京。",
+        "toward": "搭 JR 橫須賀線或當日最順的 JR 路線返回住宿區。",
+        "tip": "回程前先確認直達班次與轉乘站，晚間班距可能與白天不同。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "lodging-Ueno",
+    "placeId": "hotel-ueno",
+    "name": "上野單人套房候選",
+    "area": "Ueno",
+    "status": "tentative",
+    "checkInDayId": 1,
+    "checkOutDayId": 5,
+    "notes": ["尚未訂房，飯店名稱與地址待確認。"]
+  },
+  {
+    "id": "lodging-Asakusa",
+    "placeId": "hotel-asakusa",
+    "name": "淺草單人套房候選",
+    "area": "Asakusa",
+    "status": "tentative",
+    "checkInDayId": 1,
+    "checkOutDayId": 5,
+    "notes": ["尚未訂房，飯店名稱與地址待確認。"]
+  }
+]

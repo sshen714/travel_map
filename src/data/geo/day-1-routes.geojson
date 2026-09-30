@@ -1,0 +1,131 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "route-1",
+      "properties": {
+        "id": "route-1"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [140.3864, 35.7719],
+          [139.7774, 35.7138]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-2",
+      "properties": {
+        "id": "route-2"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [140.3864, 35.7719],
+          [139.7774, 35.7138]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-4",
+      "properties": {
+        "id": "route-4"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7774, 35.7138],
+          [139.7984, 35.7107]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-5",
+      "properties": {
+        "id": "route-5"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7984, 35.7107],
+          [139.7966, 35.7111]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-6",
+      "properties": {
+        "id": "route-6"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7966, 35.7111],
+          [139.7966, 35.7125]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-7",
+      "properties": {
+        "id": "route-7"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7966, 35.7125],
+          [139.7967, 35.714]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-8",
+      "properties": {
+        "id": "route-8"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7967, 35.714],
+          [139.7967, 35.7148]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-9",
+      "properties": {
+        "id": "route-9"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7967, 35.7148],
+          [139.802, 35.7117]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-10",
+      "properties": {
+        "id": "route-10"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.802, 35.7117],
+          [139.8107, 35.7101]
+        ]
+      }
+    }
+  ]
+}

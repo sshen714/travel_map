@@ -1,0 +1,132 @@
+[
+  {
+    "id": 1,
+    "title": "抵達東京・淺草",
+    "shortTitle": "淺草",
+    "summary": "14:20 抵達成田機場，再前往市區，在寺院、商店街與河岸之間切換成旅行的步調。",
+    "eyebrow": "ASAKUSA / SUMIDA",
+    "color": "#e6b96c",
+    "date": "2027-01-08",
+    "stopIds": [
+      "d1-1",
+      "d1-3",
+      "d1-4",
+      "d1-5",
+      "d1-6",
+      "d1-7",
+      "d1-8",
+      "d1-9",
+      "d1-10",
+      "d1-11",
+      "d1-12",
+      "d1-13"
+    ],
+    "routeSegmentIds": [
+      "route-1",
+      "route-2",
+      "route-4",
+      "route-5",
+      "route-6",
+      "route-7",
+      "route-8",
+      "route-9",
+      "route-10"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "原宿・澀谷",
+    "shortTitle": "森林走向城市",
+    "summary": "走過明治神宮的綠意，在澀谷的日落與夜景裡，收集東京的另一面。",
+    "eyebrow": "HARAJUKU / SHIBUYA",
+    "color": "#ed9a97",
+    "date": "2027-01-09",
+    "stopIds": ["d2-1", "d2-2", "d2-3", "d2-4", "d2-5", "d2-6", "d2-7", "d2-8"],
+    "routeSegmentIds": [
+      "route-11",
+      "route-12",
+      "route-13",
+      "route-14",
+      "route-15",
+      "route-16",
+      "route-17"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "鎌倉・江之島",
+    "shortTitle": "沿著海岸去旅行",
+    "summary": "搭上懸掛式單軌與江之電，把一天留給海風、神社和沿途風景。",
+    "eyebrow": "KAMAKURA / ENOSHIMA",
+    "color": "#88c8b2",
+    "date": "2027-01-10",
+    "stopIds": [
+      "d3-1",
+      "d3-2",
+      "d3-3",
+      "d3-4",
+      "d3-5",
+      "d3-6",
+      "d3-7",
+      "d3-8",
+      "d3-9",
+      "d3-10",
+      "d3-11",
+      "d3-12",
+      "d3-13",
+      "d3-14",
+      "d3-15",
+      "d3-16",
+      "d3-17"
+    ],
+    "routeSegmentIds": [
+      "route-18",
+      "route-19",
+      "route-20",
+      "route-21",
+      "route-22",
+      "route-23",
+      "route-24",
+      "route-25",
+      "route-26",
+      "route-27",
+      "route-28",
+      "route-29",
+      "route-30",
+      "route-31",
+      "route-32",
+      "route-33"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "新宿・城市夜生活",
+    "shortTitle": "留一點空白給東京",
+    "summary": "逛街、拉麵、城市展望台。這一天的節奏，留給當下的心情。",
+    "eyebrow": "SHINJUKU / CITY LIGHTS",
+    "color": "#b1a6de",
+    "date": "2027-01-11",
+    "stopIds": ["d4-1", "d4-2", "d4-3", "d4-4", "d4-5", "d4-6", "d4-7"],
+    "routeSegmentIds": ["route-34", "route-35", "route-36", "route-37"]
+  },
+  {
+    "id": 5,
+    "title": "成田・返台",
+    "shortTitle": "帶著回憶回家",
+    "summary": "用一碗鰻魚飯為旅行收尾，走過成田老街，再前往機場搭乘 15:40 的返台航班。",
+    "eyebrow": "NARITA / HOMEBOUND",
+    "color": "#86bbde",
+    "date": "2027-01-12",
+    "stopIds": ["d5-1", "d5-2", "d5-3", "d5-4", "d5-5", "d5-6", "d5-7", "d5-8", "d5-9"],
+    "routeSegmentIds": [
+      "route-38",
+      "route-39",
+      "route-40",
+      "route-41",
+      "route-42",
+      "route-43",
+      "route-44",
+      "route-45"
+    ]
+  }
+]

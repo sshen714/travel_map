@@ -1,0 +1,378 @@
+[
+  {
+    "id": "d1-1",
+    "dayId": 1,
+    "placeId": "narita-airport",
+    "order": 1,
+    "startTime": "14:20",
+    "status": "confirmed",
+    "notes": ["星宇航空 JX802｜TPE 10:10 → NRT 14:20", "抵達時間為日本時間（UTC+9）。"]
+  },
+  {
+    "id": "d1-3",
+    "dayId": 1,
+    "placeId": "ueno",
+    "order": 2,
+    "status": "tentative"
+  },
+  {
+    "id": "d1-4",
+    "dayId": 1,
+    "placeId": "asakusa-station",
+    "order": 3,
+    "status": "tentative"
+  },
+  {
+    "id": "d1-5",
+    "dayId": 1,
+    "placeId": "hotel-ueno",
+    "order": 4,
+    "status": "tentative"
+  },
+  {
+    "id": "d1-6",
+    "dayId": 1,
+    "placeId": "hotel-asakusa",
+    "order": 5,
+    "status": "tentative"
+  },
+  {
+    "id": "d1-7",
+    "dayId": 1,
+    "placeId": "kaminarimon",
+    "order": 6,
+    "status": "tentative"
+  },
+  {
+    "id": "d1-8",
+    "dayId": 1,
+    "placeId": "nakamise",
+    "order": 7,
+    "status": "tentative"
+  },
+  {
+    "id": "d1-9",
+    "dayId": 1,
+    "placeId": "kokonoe",
+    "order": 8,
+    "status": "tentative"
+  },
+  {
+    "id": "d1-10",
+    "dayId": 1,
+    "placeId": "sensoji",
+    "order": 9,
+    "status": "tentative"
+  },
+  {
+    "id": "d1-11",
+    "dayId": 1,
+    "placeId": "sumida",
+    "order": 10,
+    "status": "tentative"
+  },
+  {
+    "id": "d1-12",
+    "dayId": 1,
+    "placeId": "skytree",
+    "order": 11,
+    "status": "optional"
+  },
+  {
+    "id": "d1-13",
+    "dayId": 1,
+    "placeId": "gyuko",
+    "order": 12,
+    "status": "tentative"
+  },
+  {
+    "id": "d2-1",
+    "dayId": 2,
+    "placeId": "harajuku",
+    "order": 1,
+    "status": "tentative"
+  },
+  {
+    "id": "d2-2",
+    "dayId": 2,
+    "placeId": "meiji",
+    "order": 2,
+    "status": "tentative"
+  },
+  {
+    "id": "d2-3",
+    "dayId": 2,
+    "placeId": "takeshita",
+    "order": 3,
+    "status": "tentative"
+  },
+  {
+    "id": "d2-4",
+    "dayId": 2,
+    "placeId": "omotesando",
+    "order": 4,
+    "status": "tentative"
+  },
+  {
+    "id": "d2-5",
+    "dayId": 2,
+    "placeId": "breakbeats",
+    "order": 5,
+    "status": "tentative"
+  },
+  {
+    "id": "d2-6",
+    "dayId": 2,
+    "placeId": "shibuya-crossing",
+    "order": 6,
+    "status": "tentative"
+  },
+  {
+    "id": "d2-7",
+    "dayId": 2,
+    "placeId": "center-street",
+    "order": 7,
+    "status": "tentative"
+  },
+  {
+    "id": "d2-8",
+    "dayId": 2,
+    "placeId": "shibuya-sky",
+    "order": 8,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-1",
+    "dayId": 3,
+    "placeId": "ueno",
+    "order": 1,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-2",
+    "dayId": 3,
+    "placeId": "ofuna",
+    "order": 2,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-3",
+    "dayId": 3,
+    "placeId": "starbucks",
+    "order": 3,
+    "status": "optional"
+  },
+  {
+    "id": "d3-4",
+    "dayId": 3,
+    "placeId": "shonan-enoshima",
+    "order": 4,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-5",
+    "dayId": 3,
+    "placeId": "enoden-enoshima",
+    "order": 5,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-6",
+    "dayId": 3,
+    "placeId": "kamakurakoko",
+    "order": 6,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-7",
+    "dayId": 3,
+    "placeId": "crossing",
+    "order": 7,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-8",
+    "dayId": 3,
+    "placeId": "espresso",
+    "order": 8,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-9",
+    "dayId": 3,
+    "placeId": "enoshima-street",
+    "order": 9,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-10",
+    "dayId": 3,
+    "placeId": "enoshima-shrine",
+    "order": 10,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-11",
+    "dayId": 3,
+    "placeId": "enoshima-sea",
+    "order": 11,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-12",
+    "dayId": 3,
+    "placeId": "shichirigahama",
+    "order": 12,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-13",
+    "dayId": 3,
+    "placeId": "hase",
+    "order": 13,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-14",
+    "dayId": 3,
+    "placeId": "buddha",
+    "order": 14,
+    "status": "optional"
+  },
+  {
+    "id": "d3-15",
+    "dayId": 3,
+    "placeId": "hasedera",
+    "order": 15,
+    "status": "optional"
+  },
+  {
+    "id": "d3-16",
+    "dayId": 3,
+    "placeId": "kamakura",
+    "order": 16,
+    "status": "tentative"
+  },
+  {
+    "id": "d3-17",
+    "dayId": 3,
+    "placeId": "ueno",
+    "order": 17,
+    "status": "tentative",
+    "notes": ["返回東京；實際終點依住宿位置調整。"]
+  },
+  {
+    "id": "d4-1",
+    "dayId": 4,
+    "placeId": "akihabara",
+    "order": 1,
+    "status": "optional"
+  },
+  {
+    "id": "d4-2",
+    "dayId": 4,
+    "placeId": "iruka",
+    "order": 2,
+    "status": "tentative"
+  },
+  {
+    "id": "d4-3",
+    "dayId": 4,
+    "placeId": "shinjuku",
+    "order": 3,
+    "status": "tentative"
+  },
+  {
+    "id": "d4-4",
+    "dayId": 4,
+    "placeId": "tocho",
+    "order": 4,
+    "status": "tentative"
+  },
+  {
+    "id": "d4-5",
+    "dayId": 4,
+    "placeId": "kabukicho",
+    "order": 5,
+    "status": "tentative"
+  },
+  {
+    "id": "d4-6",
+    "dayId": 4,
+    "placeId": "shinjuku-dinner",
+    "order": 6,
+    "status": "tentative"
+  },
+  {
+    "id": "d4-7",
+    "dayId": 4,
+    "placeId": "shunyacchan",
+    "order": 7,
+    "status": "optional"
+  },
+  {
+    "id": "d5-1",
+    "dayId": 5,
+    "placeId": "hotel-ueno",
+    "order": 1,
+    "status": "tentative"
+  },
+  {
+    "id": "d5-2",
+    "dayId": 5,
+    "placeId": "hotel-asakusa",
+    "order": 2,
+    "status": "tentative"
+  },
+  {
+    "id": "d5-3",
+    "dayId": 5,
+    "placeId": "keisei-narita",
+    "order": 3,
+    "status": "tentative"
+  },
+  {
+    "id": "d5-4",
+    "dayId": 5,
+    "placeId": "narita",
+    "order": 4,
+    "status": "tentative"
+  },
+  {
+    "id": "d5-5",
+    "dayId": 5,
+    "placeId": "narita-street",
+    "order": 5,
+    "status": "tentative"
+  },
+  {
+    "id": "d5-6",
+    "dayId": 5,
+    "placeId": "kawatoyo",
+    "order": 6,
+    "status": "tentative"
+  },
+  {
+    "id": "d5-7",
+    "dayId": 5,
+    "placeId": "naritasan",
+    "order": 7,
+    "status": "tentative"
+  },
+  {
+    "id": "d5-8",
+    "dayId": 5,
+    "placeId": "narita-park",
+    "order": 8,
+    "status": "optional"
+  },
+  {
+    "id": "d5-9",
+    "dayId": 5,
+    "placeId": "narita-airport",
+    "order": 9,
+    "startTime": "15:40",
+    "status": "confirmed",
+    "notes": ["星宇航空 JX803｜NRT 15:40 → TPE 18:45", "起飛為日本時間；抵達為台灣時間（UTC+8）。"]
+  }
+]

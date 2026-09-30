@@ -1,0 +1,61 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "route-34",
+      "properties": {
+        "id": "route-34"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7744, 35.6984],
+          [139.7006, 35.6896]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-35",
+      "properties": {
+        "id": "route-35"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7006, 35.6896],
+          [139.6917, 35.6896]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-36",
+      "properties": {
+        "id": "route-36"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.6917, 35.6896],
+          [139.7034, 35.6941]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-37",
+      "properties": {
+        "id": "route-37"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7034, 35.6941],
+          [139.7005, 35.6931]
+        ]
+      }
+    }
+  ]
+}

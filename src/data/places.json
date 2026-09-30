@@ -1,0 +1,489 @@
+[
+  {
+    "id": "narita-airport",
+    "name": "成田機場",
+    "category": "airport",
+    "status": "confirmed",
+    "coordinates": [140.3864, 35.7719],
+    "dayIds": [1, 5],
+    "notes": [
+      "去程：2027/1/8 星宇航空 JX802，14:20 抵達成田機場。",
+      "回程：2027/1/12 星宇航空 JX803，15:40 從成田機場起飛。",
+      "地圖位置為行程規劃參考，請以實際航廈與現場指示為準。"
+    ],
+    "reservationRequired": false
+  },
+  {
+    "id": "ueno",
+    "name": "上野站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.7774, 35.7138],
+    "dayIds": [1, 3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "asakusa-station",
+    "name": "淺草站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.7984, 35.7107],
+    "dayIds": [1],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "hotel-ueno",
+    "name": "上野住宿候選",
+    "category": "hotel",
+    "status": "tentative",
+    "coordinates": null,
+    "dayIds": [1, 5],
+    "notes": ["尚未訂房；偏好單人套房，不考慮青年旅館。", "訂房後填入飯店名稱、地址與座標。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "hotel-asakusa",
+    "name": "淺草住宿候選",
+    "category": "hotel",
+    "status": "tentative",
+    "coordinates": null,
+    "dayIds": [1, 5],
+    "notes": ["尚未訂房；偏好單人套房，不考慮青年旅館。", "訂房後填入飯店名稱、地址與座標。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "kaminarimon",
+    "name": "雷門",
+    "category": "attraction",
+    "status": "tentative",
+    "coordinates": [139.7966, 35.7111],
+    "dayIds": [1],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "nakamise",
+    "name": "仲見世通",
+    "category": "shopping",
+    "status": "tentative",
+    "coordinates": [139.7966, 35.7125],
+    "dayIds": [1],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "sensoji",
+    "name": "淺草寺",
+    "category": "attraction",
+    "status": "tentative",
+    "coordinates": [139.7967, 35.7148],
+    "dayIds": [1],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "kokonoe",
+    "name": "炸饅頭九重",
+    "category": "restaurant",
+    "status": "tentative",
+    "coordinates": [139.7967, 35.714],
+    "dayIds": [1],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "sumida",
+    "name": "隅田川散步",
+    "category": "area",
+    "status": "tentative",
+    "coordinates": [139.802, 35.7117],
+    "dayIds": [1],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "skytree",
+    "name": "晴空塔周邊",
+    "category": "attraction",
+    "status": "optional",
+    "coordinates": [139.8107, 35.7101],
+    "dayIds": [1],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "gyuko",
+    "name": "淺草牛光",
+    "category": "restaurant",
+    "status": "tentative",
+    "coordinates": null,
+    "dayIds": [1],
+    "notes": ["確切地址或分店待確認，暫不在地圖上定位。"],
+    "reservationRequired": true
+  },
+  {
+    "id": "meiji",
+    "name": "明治神宮",
+    "category": "attraction",
+    "status": "tentative",
+    "coordinates": [139.6993, 35.6764],
+    "dayIds": [2],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "harajuku",
+    "name": "原宿站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.7027, 35.6702],
+    "dayIds": [2],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "takeshita",
+    "name": "竹下通",
+    "category": "shopping",
+    "status": "tentative",
+    "coordinates": [139.7052, 35.6716],
+    "dayIds": [2],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "omotesando",
+    "name": "表參道",
+    "category": "area",
+    "status": "tentative",
+    "coordinates": [139.7086, 35.6674],
+    "dayIds": [2],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "breakbeats",
+    "name": "Ramen Break Beats",
+    "category": "restaurant",
+    "status": "tentative",
+    "coordinates": null,
+    "dayIds": [2],
+    "notes": [
+      "原始行程的店名與地址可能不一致，請確認分店後再預約。",
+      "預計透過 TableCheck 預約；開放時間與規則以店家公告為準。"
+    ],
+    "reservationRequired": true
+  },
+  {
+    "id": "shibuya-crossing",
+    "name": "澀谷十字路口",
+    "category": "attraction",
+    "status": "tentative",
+    "coordinates": [139.7005, 35.6595],
+    "dayIds": [2],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "center-street",
+    "name": "Center Street",
+    "category": "shopping",
+    "status": "tentative",
+    "coordinates": [139.6983, 35.6602],
+    "dayIds": [2],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "shibuya-sky",
+    "name": "SHIBUYA SKY",
+    "category": "attraction",
+    "status": "tentative",
+    "coordinates": [139.7022, 35.6584],
+    "dayIds": [2],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": true
+  },
+  {
+    "id": "ofuna",
+    "name": "大船站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.5312, 35.3533],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "starbucks",
+    "name": "大船東口 Starbucks",
+    "category": "restaurant",
+    "status": "optional",
+    "coordinates": null,
+    "dayIds": [3],
+    "notes": ["確切地址或分店待確認，暫不在地圖上定位。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "shonan-enoshima",
+    "name": "湘南江之島站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.4874, 35.3113],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "enoden-enoshima",
+    "name": "江之電江之島站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.4877, 35.3105],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "kamakurakoko",
+    "name": "鎌倉高校前站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.5004, 35.3067],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "crossing",
+    "name": "鎌倉高校前平交道",
+    "category": "attraction",
+    "status": "tentative",
+    "coordinates": [139.5009, 35.3068],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "espresso",
+    "name": "Espresso D Works",
+    "category": "restaurant",
+    "status": "tentative",
+    "coordinates": null,
+    "dayIds": [3],
+    "notes": ["原始行程同時提到江之島與七里濱分店，分店與造訪順序待確認。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "enoshima-street",
+    "name": "江之島商店街",
+    "category": "shopping",
+    "status": "tentative",
+    "coordinates": [139.4818, 35.3008],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "enoshima-shrine",
+    "name": "江島神社",
+    "category": "attraction",
+    "status": "tentative",
+    "coordinates": [139.4803, 35.2995],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "enoshima-sea",
+    "name": "江之島海邊",
+    "category": "area",
+    "status": "tentative",
+    "coordinates": [139.4789, 35.2982],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "shichirigahama",
+    "name": "七里濱",
+    "category": "area",
+    "status": "tentative",
+    "coordinates": [139.5103, 35.306],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "hase",
+    "name": "長谷站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.5362, 35.3113],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "buddha",
+    "name": "鎌倉大佛",
+    "category": "attraction",
+    "status": "optional",
+    "coordinates": [139.5357, 35.3167],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "hasedera",
+    "name": "長谷寺",
+    "category": "attraction",
+    "status": "optional",
+    "coordinates": [139.5331, 35.3125],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "kamakura",
+    "name": "鎌倉站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.5504, 35.319],
+    "dayIds": [3],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "akihabara",
+    "name": "秋葉原",
+    "category": "area",
+    "status": "optional",
+    "coordinates": [139.7744, 35.6984],
+    "dayIds": [4],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "iruka",
+    "name": "入鹿 TOKYO",
+    "category": "restaurant",
+    "status": "tentative",
+    "coordinates": null,
+    "dayIds": [4],
+    "notes": ["分店與地址待確認，午餐地點可能影響當日移動。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "shinjuku",
+    "name": "新宿站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.7006, 35.6896],
+    "dayIds": [4],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "tocho",
+    "name": "東京都廳",
+    "category": "attraction",
+    "status": "tentative",
+    "coordinates": [139.6917, 35.6896],
+    "dayIds": [4],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "kabukicho",
+    "name": "歌舞伎町",
+    "category": "area",
+    "status": "tentative",
+    "coordinates": [139.7034, 35.6941],
+    "dayIds": [4],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "shinjuku-dinner",
+    "name": "新宿晚餐與街區散步",
+    "category": "area",
+    "status": "tentative",
+    "coordinates": [139.7005, 35.6931],
+    "dayIds": [4],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "shunyacchan",
+    "name": "高尾山屋台拉麵 Shunyacchan",
+    "category": "restaurant",
+    "status": "optional",
+    "coordinates": null,
+    "dayIds": [4],
+    "notes": ["距離新宿較遠，暫列候選，尚未安排交通。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "narita",
+    "name": "成田站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [140.3138, 35.7773],
+    "dayIds": [5],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "keisei-narita",
+    "name": "京成成田站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [140.3156, 35.7769],
+    "dayIds": [5],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "narita-street",
+    "name": "成田山表參道",
+    "category": "shopping",
+    "status": "tentative",
+    "coordinates": [140.3164, 35.781],
+    "dayIds": [5],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "kawatoyo",
+    "name": "川豐鰻魚飯本店",
+    "category": "restaurant",
+    "status": "tentative",
+    "coordinates": [140.3177, 35.7843],
+    "dayIds": [5],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "naritasan",
+    "name": "成田山新勝寺",
+    "category": "attraction",
+    "status": "tentative",
+    "coordinates": [140.3181, 35.786],
+    "dayIds": [5],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "narita-park",
+    "name": "成田山公園",
+    "category": "area",
+    "status": "optional",
+    "coordinates": [140.3215, 35.7868],
+    "dayIds": [5],
+    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "reservationRequired": false
+  }
+]
