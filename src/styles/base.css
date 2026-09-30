@@ -910,6 +910,16 @@ p {
   align-items: flex-end;
   gap: 9px;
 }
+.map-control-items {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 9px;
+}
+.mobile-map-tools,
+.mobile-basemap-toggle {
+  display: none;
+}
 .transit-toggle {
   min-height: 38px;
   padding: 0 12px;
@@ -1628,6 +1638,23 @@ p {
   background: #ffffffed;
   box-shadow: 0 2px 9px #263c2e38;
 }
+:root[data-theme='light'] .map-control-items {
+  background: #fbfcf8f2;
+  border-color: #334b3a26;
+  box-shadow: 0 12px 30px #344a3c2e;
+}
+:root[data-theme='light'] .mobile-map-tools,
+:root[data-theme='light'] .mobile-basemap-toggle button {
+  color: #4f6256;
+}
+:root[data-theme='light'] .mobile-basemap-toggle button.active {
+  color: #ffffff;
+  background: #445b49;
+}
+:root[data-theme='light'] .map-marker.candidate .marker-dot {
+  color: color-mix(in srgb, var(--marker-color) 62%, #26352d);
+  border-color: color-mix(in srgb, var(--marker-color) 70%, #26352d);
+}
 :root[data-theme='light'] .marker-label {
   color: #26362d;
   background: #fffffff0;
@@ -1774,35 +1801,34 @@ p {
 }
 @media (max-width: 759px) {
   .app-header {
-    height: 70px;
-    padding: 0 17px;
+    height: 58px;
+    padding: 0 13px;
   }
   .brand {
-    font-size: 18px;
-    gap: 9px;
-    letter-spacing: 2px;
+    font-size: 16px;
+    gap: 8px;
+    letter-spacing: 1.5px;
   }
   .brand-mark {
-    width: 34px;
-    height: 34px;
+    width: 31px;
+    height: 31px;
   }
   .brand small {
-    font-size: 7px;
-    letter-spacing: 1.4px;
+    display: none;
   }
   .header-actions {
     gap: 0;
   }
   .theme-toggle {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
   }
   .main-nav {
     gap: 0;
   }
   .main-nav a {
-    font-size: 10px;
-    padding: 9px 8px;
+    font-size: 9px;
+    padding: 8px 7px;
   }
   .main-nav a svg {
     display: none;
@@ -1811,18 +1837,18 @@ p {
     display: none;
   }
   .toolbar {
-    height: 68px;
-    padding: 0 12px;
+    height: 54px;
+    padding: 0 8px;
   }
   .day-selector {
     justify-content: flex-start;
-    gap: 6px;
-    padding: 4px;
+    gap: 5px;
+    padding: 2px;
   }
   .day-selector button {
-    font-size: 11px;
-    min-height: 42px;
-    padding: 9px 14px;
+    font-size: 10px;
+    min-height: 36px;
+    padding: 7px 12px;
   }
   .day-selector button span {
     display: none;
@@ -1903,16 +1929,18 @@ p {
   }
   .map-context {
     font-size: 9px;
-    padding: 10px 9px;
+    padding: 8px 9px;
     letter-spacing: 0;
   }
   .map-context small {
-    font-size: 6px;
-    letter-spacing: 1px;
+    display: none;
   }
   .mode-toggle button {
-    font-size: 10px;
-    padding: 8px 7px;
+    font-size: 9px;
+    padding: 7px 8px;
+  }
+  .desktop-basemap-toggle {
+    display: none;
   }
   .transit-diagram-scroll {
     inset: 75px 0 105px;
@@ -1967,17 +1995,78 @@ p {
   }
   .map-controls {
     right: 13px;
-    top: 126px;
-    gap: 7px;
+    top: 66px;
+    gap: 0;
+    z-index: 5;
   }
-  .transit-toggle {
-    width: 48px;
-    min-height: 50px;
-    padding: 5px 2px;
+  .mobile-map-tools {
+    width: 46px;
+    min-height: 46px;
+    display: inline-flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
     gap: 2px;
+    color: #c7d1bf;
     font-size: 8px;
+  }
+  .map-control-items {
+    position: absolute;
+    top: 53px;
+    right: 0;
+    display: none;
+    grid-template-columns: 46px 46px;
+    align-items: stretch;
+    gap: 6px;
+    padding: 7px;
+    background: #17211eee;
+    border: 1px solid #8c9c8a30;
+    border-radius: 13px;
+    box-shadow: 0 12px 30px #07100c55;
+    backdrop-filter: blur(14px);
+  }
+  .map-controls.open .map-control-items {
+    display: grid;
+  }
+  .mobile-basemap-toggle {
+    grid-column: 1 / -1;
+    display: flex;
+    padding: 3px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+  }
+  .mobile-basemap-toggle button {
+    flex: 1;
+    min-height: 32px;
+    padding: 4px 7px;
+    color: #9dac9f;
+    border-radius: 6px;
+    font-size: 9px;
+  }
+  .mobile-basemap-toggle button.active {
+    color: #263329;
+    background: #ccd6b5;
+  }
+  .transit-toggle {
+    grid-column: 1 / -1;
+    width: auto;
+    min-height: 38px;
+    padding: 5px 8px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 6px;
+    font-size: 9px;
+  }
+  .map-control-items .zoom-buttons {
+    flex-direction: row;
+    grid-column: 1 / -1;
+  }
+  .map-control-items .zoom-buttons button {
+    flex: 1;
+  }
+  .map-control-items .zoom-buttons button + button {
+    border-top: 0;
+    border-left: 1px solid var(--line);
   }
   .icon-button {
     min-width: 42px;
@@ -1985,13 +2074,11 @@ p {
   }
   .map-bottom {
     left: 13px;
-    bottom: 34px;
+    bottom: 12px;
     gap: 6px;
   }
   .map-legend {
-    font-size: 8px;
-    gap: 11px;
-    padding: 10px 12px;
+    display: none;
   }
   .route-disclaimer {
     font-size: 8px;
@@ -1999,7 +2086,9 @@ p {
   .marker-dot {
     width: 28px;
     height: 28px;
+    border-width: 2px;
     font-size: 12px;
+    font-weight: 700;
   }
   .marker-label {
     font-size: 9px;
@@ -2007,9 +2096,9 @@ p {
     max-width: 120px;
   }
   .layer-panel {
-    right: 64px;
-    top: 88px;
-    width: 230px;
+    right: 13px;
+    top: 66px;
+    width: min(250px, calc(100% - 26px));
     max-height: calc(100% - 140px);
     overflow: auto;
   }

@@ -39,6 +39,12 @@ async function openPanel(page: any) {
       await page.locator('.mobile-panel-toggle').click()
   }
 }
+async function openMapTools(page: any) {
+  const button = page.getByRole('button', { name: '地圖工具', exact: true })
+  if (await button.isVisible()) {
+    if ((await button.getAttribute('aria-expanded')) === 'false') await button.click()
+  }
+}
 test('five days, daily page reload, invalid route and responsive layout', async ({ page }) => {
   await openPanel(page)
   await expect(page.locator('.day-card')).toHaveCount(5)
@@ -75,6 +81,7 @@ test('timeline, repeated place selection, missing coordinates, map markers and l
   await page.getByRole('button', { name: '關閉地點資訊' }).click()
   if (await page.locator('.mobile-panel-toggle').isVisible())
     await page.locator('.mobile-panel-toggle').click()
+  await openMapTools(page)
   await page.getByRole('button', { name: '縮放至目前行程' }).click()
   await page.getByRole('button', { name: '查看大船站', exact: true }).click()
   await expect(page.getByRole('heading', { name: '大船站', exact: true })).toBeVisible()
@@ -82,6 +89,7 @@ test('timeline, repeated place selection, missing coordinates, map markers and l
   await page.getByRole('button', { name: '關閉地點資訊' }).click()
   if (await page.locator('.mobile-panel-toggle').isVisible())
     await page.locator('.mobile-panel-toggle').click()
+  await openMapTools(page)
   await page.getByRole('button', { name: '圖層設定', exact: true }).click()
   await page.getByLabel('候選地點', { exact: true }).uncheck()
   await expect(page.locator('.map-marker:not(.dimmed)')).toHaveCount(0)
@@ -99,6 +107,7 @@ test('mode switching retains selection and route overlays', async ({ page }) => 
   await page.getByRole('button', { name: '關閉地點資訊' }).click()
   if (await page.locator('.mobile-panel-toggle').isVisible())
     await page.locator('.mobile-panel-toggle').click()
+  await openMapTools(page)
   const subwayToggle = page.locator('.transit-toggle')
   await expect(subwayToggle).toHaveAttribute('aria-pressed', 'true')
   await subwayToggle.click()
@@ -106,6 +115,7 @@ test('mode switching retains selection and route overlays', async ({ page }) => 
   await subwayToggle.click()
   await expect(subwayToggle).toHaveAttribute('aria-pressed', 'true')
   await page.getByRole('button', { name: '道路地圖', exact: true }).click()
+  await openMapTools(page)
   await expect(page.getByRole('button', { name: '道路地圖', exact: true })).toHaveAttribute(
     'aria-pressed',
     'true',
@@ -114,6 +124,7 @@ test('mode switching retains selection and route overlays', async ({ page }) => 
   await expect(
     page.getByRole('navigation', { name: '選擇旅程日期' }).getByRole('button', { name: /^Day 2 / }),
   ).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.locator('[data-testid="map-canvas"]')).toHaveAttribute('data-ready', 'true')
   await page.screenshot({
     path: `test-results/${test.info().project.name}-map.png`,
     fullPage: true,
@@ -154,6 +165,7 @@ test('transit diagram shows trip rail lines and opens station details', async ({
   await page.getByRole('button', { name: '關閉地點資訊' }).click()
   await page.getByRole('button', { name: '地圖', exact: true }).click()
   await expect(page.locator('[data-testid="map-canvas"]')).toBeVisible()
+  await openMapTools(page)
   await expect(page.getByRole('button', { name: '簡化地圖', exact: true })).toHaveAttribute(
     'aria-pressed',
     'true',
@@ -171,6 +183,7 @@ test('transit diagram emphasizes the selected day routes', async ({ page }) => {
 })
 test('tile failure keeps itinerary usable and can retry', async ({ page }) => {
   await page.route('https://tiles.openfreemap.org/styles/**', (route) => route.abort())
+  await openMapTools(page)
   await page.getByRole('button', { name: '道路地圖', exact: true }).click()
   await expect(page.getByRole('button', { name: '重試底圖' })).toBeVisible()
   await page

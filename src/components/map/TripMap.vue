@@ -5,7 +5,17 @@ import type { Map as MapInstance, GeoJSONSource, Marker } from 'maplibre-gl'
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 maplibregl.setWorkerUrl(workerUrl)
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { Layers, LocateFixed, Plus, Minus, Compass, X, RefreshCw, TrainFront } from '@lucide/vue'
+import {
+  Layers,
+  LocateFixed,
+  Plus,
+  Minus,
+  Compass,
+  X,
+  RefreshCw,
+  TrainFront,
+  SlidersHorizontal,
+} from '@lucide/vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTripStore } from '../../stores/tripStore'
 import { layerLabels } from '../../services/labels'
@@ -17,6 +27,7 @@ const router = useRouter(),
 const store = useTripStore(),
   container = ref<HTMLDivElement>(),
   layersOpen = ref(false),
+  controlsOpen = ref(false),
   mapError = ref(''),
   loading = ref(true)
 const lastGeographicMode = ref<'street' | 'custom'>(
@@ -52,7 +63,7 @@ function routeData(): FeatureCollection<LineString> {
               ...f,
               properties: {
                 ...f.properties,
-                color: s.lineColor,
+                color: store.day?.color || s.lineColor,
                 opacity:
                   store.selectedDayId === 'all' || s.dayId === store.selectedDayId ? 0.85 : 0.12,
                 width: store.selectedSegmentId === s.id ? 6 : 2.5,
@@ -158,7 +169,7 @@ function fit() {
   map.fitBounds(bounds, {
     padding:
       window.innerWidth < 760
-        ? { top: 90, bottom: 120, left: 45, right: 45 }
+        ? { top: 78, bottom: 48, left: 34, right: 92 }
         : { top: 110, bottom: 100, left: 90, right: 90 },
     maxZoom: 14,
     duration: 600,
@@ -170,6 +181,7 @@ async function loadStyle() {
     loading.value = false
     mapError.value = ''
     layersOpen.value = false
+    controlsOpen.value = false
     return
   }
   const request = ++styleRequest
@@ -197,7 +209,14 @@ onMounted(async () => {
         version: 8,
         sources: {},
         layers: [
-          { id: 'background', type: 'background', paint: { 'background-color': '#17211f' } },
+          {
+            id: 'background',
+            type: 'background',
+            paint: {
+              'background-color':
+                document.documentElement.dataset.theme === 'light' ? '#f7f7f2' : '#17211f',
+            },
+          },
         ],
       },
       center: store.data!.trip.defaultViewport.center,
@@ -291,6 +310,14 @@ const selectedSegment = computed(() =>
 function showGeographicMap() {
   store.mapMode = lastGeographicMode.value
 }
+function selectBasemap(mode: 'street' | 'custom') {
+  store.mapMode = mode
+  controlsOpen.value = false
+}
+function toggleLayers() {
+  layersOpen.value = !layersOpen.value
+  controlsOpen.value = false
+}
 </script>
 <template>
   <div
@@ -335,19 +362,21 @@ function showGeographicMap() {
       </div>
       <div
         v-if="store.mapMode !== 'transit'"
-        class="mode-toggle basemap-toggle control"
+        class="mode-toggle basemap-toggle desktop-basemap-toggle control"
         aria-label="地圖樣式"
       >
         <button
+          aria-label="道路地圖"
           :class="{ active: store.mapMode === 'street' }"
           :aria-pressed="store.mapMode === 'street'"
-          @click="store.mapMode = 'street'"
+          @click="selectBasemap('street')"
         >
           道路地圖</button
         ><button
+          aria-label="簡化地圖"
           :class="{ active: store.mapMode === 'custom' }"
           :aria-pressed="store.mapMode === 'custom'"
-          @click="store.mapMode = 'custom'"
+          @click="selectBasemap('custom')"
         >
           簡化地圖
         </button>
@@ -362,36 +391,63 @@ function showGeographicMap() {
   <div v-if="!hasPoints && !loading" class="map-message" role="status">
     此篩選下沒有可定位的地點。
   </div>
-  <div v-if="store.mapMode !== 'transit'" class="map-controls">
+  <div v-if="store.mapMode !== 'transit'" :class="['map-controls', { open: controlsOpen }]">
     <button
-      class="control transit-toggle"
-      :class="{ active: store.visibleLayerIds.includes('subway') }"
-      :aria-pressed="store.visibleLayerIds.includes('subway')"
-      :aria-label="store.visibleLayerIds.includes('subway') ? '隱藏地鐵路線' : '顯示地鐵路線'"
-      @click="store.toggleLayer('subway')"
+      class="control mobile-map-tools"
+      aria-label="地圖工具"
+      :aria-expanded="controlsOpen"
+      @click="controlsOpen = !controlsOpen"
     >
-      <TrainFront :size="18" /><span>地鐵路線</span>
+      <SlidersHorizontal :size="18" /><span>工具</span>
     </button>
-    <button class="control icon-button" aria-label="縮放至目前行程" @click="fit">
-      <LocateFixed :size="19" />
-    </button>
-    <div class="control zoom-buttons">
-      <button class="icon-button" aria-label="放大地圖" @click="map?.zoomIn()">
-        <Plus :size="19" /></button
-      ><button class="icon-button" aria-label="縮小地圖" @click="map?.zoomOut()">
-        <Minus :size="19" />
+    <div class="map-control-items">
+      <div class="mobile-basemap-toggle" aria-label="地圖樣式">
+        <button
+          aria-label="道路地圖"
+          :class="{ active: store.mapMode === 'street' }"
+          :aria-pressed="store.mapMode === 'street'"
+          @click="selectBasemap('street')"
+        >
+          道路</button
+        ><button
+          aria-label="簡化地圖"
+          :class="{ active: store.mapMode === 'custom' }"
+          :aria-pressed="store.mapMode === 'custom'"
+          @click="selectBasemap('custom')"
+        >
+          簡化
+        </button>
+      </div>
+      <button
+        class="control transit-toggle"
+        :class="{ active: store.visibleLayerIds.includes('subway') }"
+        :aria-pressed="store.visibleLayerIds.includes('subway')"
+        :aria-label="store.visibleLayerIds.includes('subway') ? '隱藏地鐵路線' : '顯示地鐵路線'"
+        @click="store.toggleLayer('subway')"
+      >
+        <TrainFront :size="18" /><span>地鐵路線</span>
+      </button>
+      <button class="control icon-button" aria-label="縮放至目前行程" @click="fit">
+        <LocateFixed :size="19" />
+      </button>
+      <div class="control zoom-buttons">
+        <button class="icon-button" aria-label="放大地圖" @click="map?.zoomIn()">
+          <Plus :size="19" /></button
+        ><button class="icon-button" aria-label="縮小地圖" @click="map?.zoomOut()">
+          <Minus :size="19" />
+        </button>
+      </div>
+      <button class="control icon-button" aria-label="地圖朝北" @click="map?.resetNorth()">
+        <Compass :size="19" /></button
+      ><button
+        class="control icon-button"
+        aria-label="圖層設定"
+        :aria-expanded="layersOpen"
+        @click="toggleLayers"
+      >
+        <Layers :size="19" />
       </button>
     </div>
-    <button class="control icon-button" aria-label="地圖朝北" @click="map?.resetNorth()">
-      <Compass :size="19" /></button
-    ><button
-      class="control icon-button"
-      aria-label="圖層設定"
-      :aria-expanded="layersOpen"
-      @click="layersOpen = !layersOpen"
-    >
-      <Layers :size="19" />
-    </button>
   </div>
   <section
     v-if="layersOpen && store.mapMode !== 'transit'"
@@ -420,7 +476,7 @@ function showGeographicMap() {
     <p v-for="note in selectedSegment.notes" :key="note">{{ note }}</p>
   </div>
   <div v-if="store.mapMode !== 'transit'" class="map-bottom">
-    <div class="map-legend control">
+    <div v-if="store.selectedDayId === 'all'" class="map-legend control">
       <span v-for="day in store.data?.days" :key="day.id"
         ><i :style="{ background: day.color }" />Day {{ day.id }}</span
       ><span class="legend-candidate">◌ 暫定／可選</span>
