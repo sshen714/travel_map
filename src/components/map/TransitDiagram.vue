@@ -118,7 +118,15 @@ async function setZoom(next: number) {
 
 async function resetView() {
   await setZoom(1)
-  scroller.value?.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
+  scrollHome('smooth')
+}
+
+function scrollHome(behavior: ScrollBehavior = 'auto') {
+  scroller.value?.scrollTo({
+    left: window.innerWidth < 760 ? mapSize.value.width * 0.2 : 0,
+    top: 0,
+    behavior,
+  })
 }
 
 function startDrag(event: PointerEvent) {
@@ -154,12 +162,14 @@ function openPlace() {
   store.selectPlace(placeId)
 }
 
-onMounted(() => {
+onMounted(async () => {
   updateBaseSize()
   if (scroller.value) {
     resizeObserver = new ResizeObserver(updateBaseSize)
     resizeObserver.observe(scroller.value)
   }
+  await nextTick()
+  scrollHome()
 })
 onBeforeUnmount(() => resizeObserver?.disconnect())
 </script>

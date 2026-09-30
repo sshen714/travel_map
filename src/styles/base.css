@@ -1943,6 +1943,16 @@ p {
   .transit-zoom-controls {
     right: 13px;
     top: 87px;
+    flex-direction: row;
+  }
+  .transit-zoom-controls span {
+    align-self: stretch;
+    display: grid;
+    place-items: center;
+    border-top: 0;
+    border-right: 1px solid var(--line);
+    border-bottom: 0;
+    border-left: 1px solid var(--line);
   }
   .transit-station-detail {
     left: 13px;

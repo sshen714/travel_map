@@ -8,7 +8,7 @@
       "name": "JR 山手線",
       "shortName": "JR 山手",
       "color": "#80c241",
-      "path": "M 290 135 H 430 L 480 180 L 500 250 V 340 L 420 420 H 300 L 250 390 L 205 330 L 175 250 L 205 180 Z",
+      "path": "M 290 135 H 530 L 480 200 L 500 250 V 340 L 420 420 H 300 L 250 390 L 205 330 L 175 250 L 205 180 Z",
       "days": [2, 3, 4]
     },
     {
@@ -16,7 +16,7 @@
       "name": "東京 Metro 銀座線",
       "shortName": "銀座線",
       "color": "#f39700",
-      "path": "M 250 390 L 310 350 H 390 L 440 310 V 220 L 480 180 H 600",
+      "path": "M 250 390 L 310 350 H 390 L 440 310 V 240 L 480 200 H 620",
       "days": [1, 2]
     },
     {
@@ -32,7 +32,7 @@
       "name": "京成 Skyliner",
       "shortName": "Skyliner",
       "color": "#1676c4",
-      "path": "M 530 190 L 475 135 H 650 L 690 95 H 1010",
+      "path": "M 430 180 L 530 135 H 650 L 690 95 H 1010",
       "days": [1]
     },
     {
@@ -40,7 +40,7 @@
       "name": "京成本線",
       "shortName": "京成本線",
       "color": "#c8921d",
-      "path": "M 530 190 H 650 L 720 240 H 880 L 930 190 V 95",
+      "path": "M 430 180 L 530 135 L 585 190 H 650 L 720 240 H 880 L 930 190 V 95",
       "days": [1, 5]
     },
     {
@@ -71,8 +71,8 @@
   "walkLinks": [
     {
       "id": "ueno-keisei-ueno",
-      "from": [480, 180],
-      "to": [530, 190],
+      "from": [480, 200],
+      "to": [430, 180],
       "label": "步行轉乘",
       "days": [1, 5]
     },
@@ -219,8 +219,8 @@
       "id": "ueno",
       "name": "上野",
       "x": 480,
-      "y": 180,
-      "position": "left",
+      "y": 200,
+      "position": "bottom",
       "lines": ["yamanote", "ginza"],
       "placeId": "ueno",
       "transfer": true,
@@ -235,9 +235,9 @@
     {
       "id": "keisei-ueno",
       "name": "京成上野",
-      "x": 530,
-      "y": 190,
-      "position": "right",
+      "x": 430,
+      "y": 180,
+      "position": "left",
       "lines": ["skyliner", "keisei"],
       "placeId": "ueno",
       "journey": {
@@ -250,10 +250,10 @@
     {
       "id": "nippori",
       "name": "日暮里",
-      "x": 475,
+      "x": 530,
       "y": 135,
       "position": "top",
-      "lines": ["yamanote", "skyliner"],
+      "lines": ["yamanote", "skyliner", "keisei"],
       "transfer": true,
       "journey": {
         "days": [1],
@@ -265,8 +265,8 @@
     {
       "id": "asakusa",
       "name": "淺草",
-      "x": 600,
-      "y": 180,
+      "x": 620,
+      "y": 200,
       "position": "right",
       "lines": ["ginza"],
       "placeId": "asakusa-station",
