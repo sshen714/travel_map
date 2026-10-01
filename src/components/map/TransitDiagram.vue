@@ -41,10 +41,26 @@ interface WalkLink {
   label: string
   days: number[]
 }
+interface TransitLineLabel {
+  text: string
+  x: number
+  y: number
+  width: number
+}
+interface TransitLine {
+  id: string
+  name: string
+  shortName: string
+  color: string
+  path: string
+  labels?: TransitLineLabel[]
+  days: number[]
+}
 
 const store = useTripStore()
 const viewBox = transitNetwork.viewBox.join(' ')
 const stations = transitNetwork.stations as TransitStation[]
+const lines = transitNetwork.lines as TransitLine[]
 const scroller = ref<HTMLDivElement>()
 const selectedStation = ref<TransitStation>()
 const zoom = ref(1)
@@ -56,7 +72,7 @@ const mapSize = computed(() => ({
 }))
 const selectedStationId = computed(() => selectedStation.value?.id)
 const selectedLines = computed(() =>
-  transitNetwork.lines.filter((line) => selectedStation.value?.lines.includes(line.id)),
+  lines.filter((line) => selectedStation.value?.lines.includes(line.id)),
 )
 const selectedDay = computed(() =>
   store.selectedDayId === 'all' ? undefined : store.selectedDayId,
@@ -84,14 +100,31 @@ function stationIsActive(station: TransitStation) {
   return (
     !selectedDay.value ||
     station.journey?.days.includes(selectedDay.value) ||
-    transitNetwork.lines.some(
-      (line) => station.lines.includes(line.id) && line.days.includes(selectedDay.value!),
-    )
+    lines.some((line) => station.lines.includes(line.id) && line.days.includes(selectedDay.value!))
   )
 }
 
+function pathEndpoints(path: string) {
+  const tokens = path.match(/[MLHV]|-?\d+(?:\.\d+)?/g) || []
+  const points: string[] = []
+  let x = 0,
+    y = 0
+  for (let index = 0; index < tokens.length;) {
+    const command = tokens[index++]
+    if (command === 'M' || command === 'L') {
+      x = Number(tokens[index++])
+      y = Number(tokens[index++])
+    } else if (command === 'H') x = Number(tokens[index++])
+    else if (command === 'V') y = Number(tokens[index++])
+    points.push(`${x},${y}`)
+  }
+  return [points[0], points.at(-1)]
+}
+
+const terminalPoints = new Set(lines.flatMap((line) => pathEndpoints(line.path)))
+
 function isSecondary(station: TransitStation) {
-  return !station.journey
+  return !station.journey && !terminalPoints.has(`${station.x},${station.y}`)
 }
 
 function updateBaseSize() {
@@ -222,7 +255,7 @@ onBeforeUnmount(() => resizeObserver?.disconnect())
           </g>
         </g>
         <g aria-hidden="true">
-          <template v-for="line in transitNetwork.lines" :key="line.id">
+          <template v-for="line in lines" :key="line.id">
             <path
               :class="['transit-line-halo', { dimmed: !lineIsActive(line.days) }]"
               :d="line.path"
@@ -233,6 +266,27 @@ onBeforeUnmount(() => resizeObserver?.disconnect())
               :stroke="line.color"
               :data-line="line.id"
             />
+          </template>
+        </g>
+        <g class="transit-route-labels" aria-hidden="true">
+          <template v-for="line in lines" :key="line.id">
+            <g
+              v-for="routeLabel in line.labels || []"
+              :key="`${line.id}-${routeLabel.text}-${routeLabel.x}`"
+              :class="['transit-route-label', { dimmed: !lineIsActive(line.days) }]"
+              :transform="`translate(${routeLabel.x} ${routeLabel.y})`"
+              :data-line="line.id"
+            >
+              <rect
+                :x="-routeLabel.width / 2"
+                y="-12"
+                :width="routeLabel.width"
+                height="24"
+                rx="8"
+                :stroke="line.color"
+              />
+              <text y="4" text-anchor="middle">{{ routeLabel.text }}</text>
+            </g>
           </template>
         </g>
         <g class="transit-stations">
@@ -343,7 +397,7 @@ onBeforeUnmount(() => resizeObserver?.disconnect())
     </aside>
 
     <div class="transit-diagram-legend">
-      <span v-for="line in transitNetwork.lines" :key="line.id">
+      <span v-for="line in lines" :key="line.id">
         <i :style="{ background: line.color }" />{{ line.shortName }}
       </span>
       <span class="transfer-key"><i class="transfer-symbol" />站內轉乘</span>

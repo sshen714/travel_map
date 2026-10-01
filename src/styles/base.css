@@ -588,6 +588,7 @@ p {
 }
 .transit-line,
 .transit-line-halo,
+.transit-route-label,
 .transit-station-group,
 .transit-walk-links g {
   transition: opacity 180ms ease;
@@ -597,6 +598,22 @@ p {
 }
 .transit-line-halo.dimmed {
   opacity: 0.35;
+}
+.transit-route-label.dimmed {
+  opacity: 0.2;
+}
+.transit-route-label rect {
+  fill: var(--diagram-bg);
+  stroke-width: 3;
+  filter: drop-shadow(0 2px 4px #0005);
+}
+.transit-route-label text {
+  fill: var(--diagram-text);
+  font-family: sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  pointer-events: none;
 }
 .transit-station-group.dimmed,
 .transit-walk-links g.dimmed {
@@ -977,6 +994,52 @@ p {
   height: 6px;
   border-radius: 50%;
 }
+.map-symbol-legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 11px;
+  color: #bec8b9;
+  font-size: 9px;
+}
+.map-symbol-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.map-symbol-legend .station-symbol {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  color: #dbe4d4;
+  background: #17231f;
+  border: 2px solid #aebca7;
+  border-radius: 50%;
+  font-family: sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+.map-symbol-legend .subway-symbol {
+  width: 20px;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    #e69618 0,
+    #e69618 6px,
+    transparent 6px,
+    transparent 9px
+  );
+  border-radius: 99px;
+  opacity: 0.8;
+}
+.map-symbol-legend .walking-transfer-symbol {
+  width: 20px;
+  height: 0;
+  border-top: 2px solid #829287;
+}
 .legend-candidate {
   border-left: 1px solid #ffffff20;
   padding-left: 12px;
@@ -1010,6 +1073,80 @@ p {
   box-shadow: 0 2px 8px #0005;
   font-size: 13px;
   font-family: sans-serif;
+}
+.map-marker.category-station .marker-dot {
+  border-style: solid;
+  font-size: 10px;
+  font-weight: 800;
+}
+.map-marker.ueno-station-marker .marker-dot {
+  width: auto;
+  min-width: 34px;
+  padding: 0 7px;
+  border-color: var(--operator-color);
+  color: var(--operator-color);
+  border-radius: 16px;
+  letter-spacing: 0.2px;
+}
+.map-marker.ueno-station-marker.operator-metro-ueno .marker-dot {
+  min-width: 53px;
+}
+.marker-line-badge {
+  width: 17px;
+  height: 17px;
+  display: inline-grid;
+  place-items: center;
+  margin-right: 5px;
+  vertical-align: -4px;
+  color: #1c1c1c;
+  background: #fff;
+  border: 3px solid var(--line-color);
+  border-radius: 50%;
+  font-family: sans-serif;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+}
+.marker-line-badge.line-ginza {
+  --line-color: #f39700;
+}
+.map-marker.operator-ueno {
+  --operator-color: #6c9f52;
+}
+.map-marker.operator-metro-ueno {
+  --operator-color: #df8310;
+}
+.map-marker.operator-keisei-ueno {
+  --operator-color: #3d76a5;
+}
+.ueno-cluster-marker .marker-dot {
+  width: auto;
+  min-width: 43px;
+  padding: 0 8px;
+  color: #f2f6ee;
+  background: #425b4a;
+  border: 2px solid #d8e3d2;
+  border-radius: 16px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+.marker-category-badge {
+  width: 19px;
+  height: 19px;
+  display: grid;
+  place-items: center;
+  margin-left: -10px;
+  color: #dbe4d4;
+  background: #17231ff2;
+  border: 2px solid #aebca7;
+  border-radius: 50%;
+  box-shadow: 0 2px 7px #0005;
+  font-family: sans-serif;
+  font-size: 8px;
+  font-weight: 800;
+  z-index: 1;
 }
 .confirmed .marker-dot {
   border-style: solid;
@@ -1049,6 +1186,45 @@ p {
 }
 .map-marker:hover .marker-dot {
   transform: scale(1.15);
+}
+.map-route-label {
+  padding: 4px 9px;
+  color: #f8fbf8;
+  background: #142019ee;
+  border: 2px solid var(--route-label-color);
+  border-radius: 8px;
+  box-shadow: 0 3px 10px #0006;
+  font-family: sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  line-height: 1;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.map-route-label-subway {
+  padding: 3px 7px;
+  border-width: 1.5px;
+  box-shadow: 0 2px 7px #0004;
+  font-size: 9px;
+  opacity: 0.86;
+}
+.ueno-transfer-label {
+  padding: 3px 7px;
+  color: #eef3ec;
+  background: #3f5549ee;
+  border: 1px solid #eef3ec;
+  border-radius: 10px;
+  box-shadow: 0 2px 7px #0004;
+  font-family: sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.is-map-hidden {
+  display: none !important;
 }
 .layer-panel {
   position: absolute;
@@ -1655,11 +1831,31 @@ p {
   color: color-mix(in srgb, var(--marker-color) 62%, #26352d);
   border-color: color-mix(in srgb, var(--marker-color) 70%, #26352d);
 }
+:root[data-theme='light'] .map-marker.ueno-station-marker .marker-dot {
+  color: var(--operator-color);
+  border-color: var(--operator-color);
+  background: #ffffffed;
+}
+:root[data-theme='light'] .ueno-cluster-marker .marker-dot {
+  color: #ffffff;
+  background: #445b49;
+  border-color: #d8e3d2;
+}
+:root[data-theme='light'] .ueno-transfer-label {
+  color: #ffffff;
+  background: #445b49f2;
+  border-color: #ffffff;
+}
 :root[data-theme='light'] .marker-label {
   color: #26362d;
   background: #fffffff0;
   border-color: #314c3820;
   box-shadow: 0 2px 9px #263c2e26;
+}
+:root[data-theme='light'] .map-route-label {
+  color: #ffffff;
+  background: #26372ef2;
+  box-shadow: 0 3px 10px #263c2e38;
 }
 :root[data-theme='light'] .place-details {
   color: #21302a;
@@ -2178,4 +2374,11 @@ p {
 }
 .map-marker.compact .marker-label {
   font-size: 9px;
+}
+.map-marker.compact.ueno-cluster-marker .marker-dot {
+  width: auto;
+  min-width: 43px;
+  height: 29px;
+  padding: 0 8px;
+  font-size: 10px;
 }

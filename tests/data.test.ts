@@ -84,6 +84,23 @@ describe('trip integrity', () => {
     expect(dataSchema.safeParse(d).success).toBe(false)
   })
 
+  it('keeps JR, Tokyo Metro and Keisei Ueno as separate stations', () => {
+    const d = dataSchema.parse(fixture())
+    const jrUeno = d.places.find((place) => place.id === 'ueno')
+    const metroUeno = d.places.find((place) => place.id === 'metro-ueno')
+    const keiseiUeno = d.places.find((place) => place.id === 'keisei-ueno')
+    expect(jrUeno?.coordinates).not.toEqual(keiseiUeno?.coordinates)
+    expect(jrUeno?.coordinates).not.toEqual(metroUeno?.coordinates)
+    expect(metroUeno?.coordinates).not.toEqual(keiseiUeno?.coordinates)
+    expect(d.segments.find((segment) => segment.id === 'route-1')?.toPlaceId).toBe('keisei-ueno')
+    expect(d.segments.find((segment) => segment.id === 'route-3')).toMatchObject({
+      fromPlaceId: 'keisei-ueno',
+      toPlaceId: 'metro-ueno',
+      mode: 'walk',
+    })
+    expect(d.segments.find((segment) => segment.id === 'route-4')?.fromPlaceId).toBe('metro-ueno')
+  })
+
   it('keeps transit station notes linked to valid lines, places and trip days', () => {
     const trip = fixture()
     const network = read('transit-network.json')

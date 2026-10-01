@@ -15,12 +15,32 @@
   },
   {
     "id": "ueno",
-    "name": "上野站",
+    "name": "JR 上野站",
     "category": "station",
     "status": "tentative",
     "coordinates": [139.7774, 35.7138],
-    "dayIds": [1, 3],
-    "notes": ["地圖位置為行程規劃參考，請以現場入口與導航為準。"],
+    "dayIds": [1, 2, 3],
+    "notes": ["JR 上野站；地圖上與東京 Metro 上野站及京成上野站分開標示。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "metro-ueno",
+    "name": "東京 Metro 上野站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.775972, 35.71175],
+    "dayIds": [1],
+    "notes": ["銀座線 G16／日比谷線 H18；Day 1 從這裡搭銀座線前往淺草。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "keisei-ueno",
+    "name": "京成上野站",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.7735, 35.71094],
+    "dayIds": [1, 5],
+    "notes": ["Skyliner 的市區端終點；前往 JR／東京 Metro 上野站需步行約 5–10 分鐘。"],
     "reservationRequired": false
   },
   {

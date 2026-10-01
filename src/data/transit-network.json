@@ -9,6 +9,7 @@
       "shortName": "JR 山手",
       "color": "#80c241",
       "path": "M 290 135 H 530 L 480 200 L 500 250 V 340 L 420 420 H 300 L 250 390 L 205 330 L 175 250 L 205 180 Z",
+      "labels": [{ "text": "JR", "x": 380, "y": 135, "width": 38 }],
       "days": [2, 3, 4]
     },
     {
@@ -22,9 +23,10 @@
     {
       "id": "chuo-sobu",
       "name": "JR 中央・總武線",
-      "shortName": "中央・總武",
+      "shortName": "JR 中央・總武",
       "color": "#e5bd2f",
       "path": "M 175 250 H 500",
+      "labels": [{ "text": "JR", "x": 335, "y": 250, "width": 38 }],
       "days": [4]
     },
     {
@@ -32,7 +34,8 @@
       "name": "京成 Skyliner",
       "shortName": "Skyliner",
       "color": "#1676c4",
-      "path": "M 430 180 L 530 135 H 650 L 690 95 H 1010",
+      "path": "M 430 180 L 530 135 H 650 L 690 95 H 970",
+      "labels": [{ "text": "Skyliner", "x": 610, "y": 135, "width": 78 }],
       "days": [1]
     },
     {
@@ -41,14 +44,15 @@
       "shortName": "京成本線",
       "color": "#c8921d",
       "path": "M 430 180 L 530 135 L 585 190 H 650 L 720 240 H 880 L 930 190 V 95",
-      "days": [1, 5]
+      "days": [5]
     },
     {
       "id": "yokosuka",
       "name": "JR 橫須賀線",
-      "shortName": "橫須賀線",
+      "shortName": "JR 橫須賀線",
       "color": "#1069a4",
       "path": "M 500 340 L 420 420 V 480 L 500 560 L 700 630",
+      "labels": [{ "text": "JR", "x": 458, "y": 518, "width": 38 }],
       "days": [3]
     },
     {
@@ -239,7 +243,7 @@
       "y": 180,
       "position": "left",
       "lines": ["skyliner", "keisei"],
-      "placeId": "ueno",
+      "placeId": "keisei-ueno",
       "journey": {
         "days": [1, 5],
         "reason": "往返成田機場時使用京成上野；它和 JR／Metro 上野之間需要走一小段路。",
@@ -330,9 +334,9 @@
     {
       "id": "narita-t1",
       "name": "成田機場 T1",
-      "x": 1010,
+      "x": 970,
       "y": 95,
-      "position": "right",
+      "position": "top",
       "lines": ["skyliner", "keisei"],
       "placeId": "narita-airport"
     },

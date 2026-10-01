@@ -9,80 +9,89 @@
     "notes": ["星宇航空 JX802｜TPE 10:10 → NRT 14:20", "抵達時間為日本時間（UTC+9）。"]
   },
   {
+    "id": "d1-2",
+    "dayId": 1,
+    "placeId": "keisei-ueno",
+    "order": 2,
+    "status": "tentative",
+    "notes": ["搭 Skyliner 抵達；接著步行前往東京 Metro 上野站。"]
+  },
+  {
     "id": "d1-3",
     "dayId": 1,
-    "placeId": "ueno",
-    "order": 2,
-    "status": "tentative"
+    "placeId": "metro-ueno",
+    "order": 3,
+    "status": "tentative",
+    "notes": ["由京成上野步行轉乘銀座線，建議預留 5–10 分鐘。"]
   },
   {
     "id": "d1-4",
     "dayId": 1,
     "placeId": "asakusa-station",
-    "order": 3,
+    "order": 4,
     "status": "tentative"
   },
   {
     "id": "d1-5",
     "dayId": 1,
     "placeId": "hotel-ueno",
-    "order": 4,
+    "order": 5,
     "status": "tentative"
   },
   {
     "id": "d1-6",
     "dayId": 1,
     "placeId": "hotel-asakusa",
-    "order": 5,
+    "order": 6,
     "status": "tentative"
   },
   {
     "id": "d1-7",
     "dayId": 1,
     "placeId": "kaminarimon",
-    "order": 6,
+    "order": 7,
     "status": "tentative"
   },
   {
     "id": "d1-8",
     "dayId": 1,
     "placeId": "nakamise",
-    "order": 7,
+    "order": 8,
     "status": "tentative"
   },
   {
     "id": "d1-9",
     "dayId": 1,
     "placeId": "kokonoe",
-    "order": 8,
+    "order": 9,
     "status": "tentative"
   },
   {
     "id": "d1-10",
     "dayId": 1,
     "placeId": "sensoji",
-    "order": 9,
+    "order": 10,
     "status": "tentative"
   },
   {
     "id": "d1-11",
     "dayId": 1,
     "placeId": "sumida",
-    "order": 10,
+    "order": 11,
     "status": "tentative"
   },
   {
     "id": "d1-12",
     "dayId": 1,
     "placeId": "skytree",
-    "order": 11,
+    "order": 12,
     "status": "optional"
   },
   {
     "id": "d1-13",
     "dayId": 1,
     "placeId": "gyuko",
-    "order": 12,
+    "order": 13,
     "status": "tentative"
   },
   {

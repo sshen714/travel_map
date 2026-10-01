@@ -74,7 +74,7 @@ test('timeline, repeated place selection, missing coordinates, map markers and l
   await openPanel(page)
   await page.locator('#stop-d3-17 button').click()
   await expect(page.locator('#stop-d3-17 button')).toHaveAttribute('aria-pressed', 'true')
-  await expect(page.getByRole('heading', { name: '上野站', exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'JR 上野站', exact: true })).toBeVisible()
   await page.getByRole('button', { name: '關閉地點資訊' }).click()
   await page.locator('#stop-d3-8 button').click()
   await expect(page.locator('.pending-location')).toBeVisible()
@@ -97,7 +97,7 @@ test('timeline, repeated place selection, missing coordinates, map markers and l
   await page.getByLabel('候選地點', { exact: true }).check()
   await expect(page.locator('.map-marker')).not.toHaveCount(0)
 })
-test('mode switching retains selection and route overlays', async ({ page }) => {
+test('mode switching retains selection and always-visible route overlays', async ({ page }) => {
   await page
     .getByRole('navigation', { name: '選擇旅程日期' })
     .getByRole('button', { name: /^Day 2 / })
@@ -108,12 +108,12 @@ test('mode switching retains selection and route overlays', async ({ page }) => 
   if (await page.locator('.mobile-panel-toggle').isVisible())
     await page.locator('.mobile-panel-toggle').click()
   await openMapTools(page)
-  const subwayToggle = page.locator('.transit-toggle')
-  await expect(subwayToggle).toHaveAttribute('aria-pressed', 'true')
-  await subwayToggle.click()
-  await expect(subwayToggle).toHaveAttribute('aria-pressed', 'false')
-  await subwayToggle.click()
-  await expect(subwayToggle).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.locator('.map-route-label-subway')).toHaveText('G 銀座線')
+  await expect(page.locator('.transit-toggle')).toHaveCount(0)
+  await expect(page.locator('.map-symbol-legend')).toContainText('駅車站')
+  await expect(
+    page.locator('.map-marker.category-station .marker-category-badge').first(),
+  ).toHaveText('駅')
   await page.getByRole('button', { name: '道路地圖', exact: true }).click()
   await openMapTools(page)
   await expect(page.getByRole('button', { name: '道路地圖', exact: true })).toHaveAttribute(
@@ -130,6 +130,48 @@ test('mode switching retains selection and route overlays', async ({ page }) => 
     fullPage: true,
   })
 })
+test('geographic map labels JR and Skyliner routes', async ({ page }) => {
+  await expect(page.locator('.map-route-label-skyliner')).toHaveText('Skyliner')
+  await page
+    .getByRole('navigation', { name: '選擇旅程日期' })
+    .getByRole('button', { name: /^Day 1 / })
+    .click()
+  await expect(page.locator('.map-route-label-skyliner')).toHaveText('Skyliner')
+  const uenoCluster = page.getByRole('button', { name: '展開上野站群，包含 3 個車站' })
+  await expect(uenoCluster).toBeVisible()
+  await expect(uenoCluster.locator('.marker-dot')).toHaveText('駅×3')
+  await page.screenshot({
+    path: `test-results/${test.info().project.name}-ueno-cluster.png`,
+    fullPage: true,
+  })
+  await expect(page.getByRole('button', { name: '查看JR 上野站' })).toBeHidden()
+  await expect(page.getByRole('button', { name: '查看東京 Metro 上野站' })).toBeHidden()
+  await expect(page.getByRole('button', { name: '查看京成上野站' })).toBeHidden()
+  await uenoCluster.click()
+  await expect(page.getByRole('button', { name: '查看JR 上野站' })).toBeVisible()
+  await expect(page.getByRole('button', { name: '查看東京 Metro 上野站' })).toBeVisible()
+  await expect(page.getByRole('button', { name: '查看京成上野站' })).toBeVisible()
+  await expect(page.locator('.operator-ueno .marker-dot')).toHaveText('JR')
+  await expect(page.locator('.operator-metro-ueno .marker-dot')).toHaveText('G16/H18')
+  await expect(page.locator('.operator-keisei-ueno .marker-dot')).toHaveText('KS01')
+  await expect(page.locator('.operator-metro-ueno .marker-line-badge')).toHaveText('G')
+  // The three Ueno markers may overlap at this zoom, so dispatch straight to the button.
+  await page.getByRole('button', { name: '查看京成上野站' }).dispatchEvent('click')
+  await expect(page.locator('.ueno-transfer-label')).toBeVisible()
+  await page.screenshot({
+    path: `test-results/${test.info().project.name}-skyliner-map.png`,
+    fullPage: true,
+  })
+  await page
+    .getByRole('navigation', { name: '選擇旅程日期' })
+    .getByRole('button', { name: /^Day 2 / })
+    .click()
+  await expect(page.locator('.map-route-label-jr')).toHaveText('JR')
+  await page.screenshot({
+    path: `test-results/${test.info().project.name}-jr-map.png`,
+    fullPage: true,
+  })
+})
 test('transit diagram shows trip rail lines and opens station details', async ({ page }) => {
   await page.getByRole('button', { name: '交通圖', exact: true }).click()
   await expect(page.getByRole('button', { name: '交通圖', exact: true })).toHaveAttribute(
@@ -138,6 +180,10 @@ test('transit diagram shows trip rail lines and opens station details', async ({
   )
   await expect(page.locator('.transit-diagram')).toBeVisible()
   await expect(page.locator('.transit-line')).toHaveCount(8)
+  await expect(page.locator('.transit-route-label[data-line="yamanote"]')).toHaveText('JR')
+  await expect(page.locator('.transit-route-label[data-line="chuo-sobu"]')).toHaveText('JR')
+  await expect(page.locator('.transit-route-label[data-line="yokosuka"]')).toHaveText('JR')
+  await expect(page.locator('.transit-route-label[data-line="skyliner"]')).toHaveText('Skyliner')
   await expect(page.locator('.transit-station-group[data-secondary="true"]:visible')).toHaveCount(0)
   const initialWidth = (await page.locator('.transit-diagram-map').boundingBox())!.width
   await page.getByRole('button', { name: '放大交通圖' }).click()
@@ -161,7 +207,7 @@ test('transit diagram shows trip rail lines and opens station details', async ({
     fullPage: true,
   })
   await page.getByRole('button', { name: '查看地點、備註與導航' }).click()
-  await expect(page.getByRole('heading', { name: '上野站', exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'JR 上野站', exact: true })).toBeVisible()
   await page.getByRole('button', { name: '關閉地點資訊' }).click()
   await page.getByRole('button', { name: '地圖', exact: true }).click()
   await expect(page.locator('[data-testid="map-canvas"]')).toBeVisible()

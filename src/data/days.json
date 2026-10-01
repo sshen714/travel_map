@@ -9,6 +9,7 @@
     "date": "2027-01-08",
     "stopIds": [
       "d1-1",
+      "d1-2",
       "d1-3",
       "d1-4",
       "d1-5",
@@ -23,7 +24,7 @@
     ],
     "routeSegmentIds": [
       "route-1",
-      "route-2",
+      "route-3",
       "route-4",
       "route-5",
       "route-6",
