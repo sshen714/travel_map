@@ -2,21 +2,12 @@
   {
     "id": "lodging-Ueno",
     "placeId": "hotel-ueno",
-    "name": "上野單人套房候選",
+    "name": "APA Hotel Ueno Inaricho Ekikita",
     "area": "Ueno",
-    "status": "tentative",
+    "status": "confirmed",
     "checkInDayId": 1,
     "checkOutDayId": 5,
-    "notes": ["尚未訂房，飯店名稱與地址待確認。"]
-  },
-  {
-    "id": "lodging-Asakusa",
-    "placeId": "hotel-asakusa",
-    "name": "淺草單人套房候選",
-    "area": "Asakusa",
-    "status": "tentative",
-    "checkInDayId": 1,
-    "checkOutDayId": 5,
-    "notes": ["尚未訂房，飯店名稱與地址待確認。"]
+    "notes": ["地址：東京都台東區東上野5-10-8。", "入住 15:00；退房 10:00。"],
+    "bookingUrl": "https://www.apahotel.com/hotel/syutoken/tokyo/ueno-inaricho/"
   }
 ]

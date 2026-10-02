@@ -57,9 +57,7 @@ const shortDate = (date?: string) => (date ? date.replaceAll('-', '.') : '')
         <span class="note-icon">✳</span>
         <div>
           <h3>讓旅程保留一點彈性</h3>
-          <p>
-            往返航班已確認，住宿尚未確定。虛線標記是暫定或可選地點，餐廳預約與交通請於出發前確認。
-          </p>
+          <p>往返航班與住宿位置已確認。虛線標記是暫定或可選地點，餐廳預約與交通請於出發前確認。</p>
         </div>
       </section>
       <div class="panel-footer">

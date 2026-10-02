@@ -22,76 +22,71 @@
     "placeId": "metro-ueno",
     "order": 3,
     "status": "tentative",
-    "notes": ["由京成上野步行轉乘銀座線，建議預留 5–10 分鐘。"]
+    "notes": ["由京成上野步行轉乘，接著前往飯店寄放行李；建議預留轉乘時間。"]
   },
   {
     "id": "d1-4",
     "dayId": 1,
     "placeId": "asakusa-station",
-    "order": 4,
-    "status": "tentative"
+    "order": 5,
+    "status": "tentative",
+    "notes": ["寄放行李後，再搭東京 Metro 銀座線前往淺草。"]
   },
   {
     "id": "d1-5",
     "dayId": 1,
     "placeId": "hotel-ueno",
-    "order": 5,
-    "status": "tentative"
-  },
-  {
-    "id": "d1-6",
-    "dayId": 1,
-    "placeId": "hotel-asakusa",
-    "order": 6,
-    "status": "tentative"
+    "order": 4,
+    "status": "confirmed",
+    "notes": ["先寄放行李；若客房已準備完成則辦理入住，正式入住時間為 15:00。"]
   },
   {
     "id": "d1-7",
     "dayId": 1,
     "placeId": "kaminarimon",
-    "order": 7,
+    "order": 6,
     "status": "tentative"
   },
   {
     "id": "d1-8",
     "dayId": 1,
     "placeId": "nakamise",
-    "order": 8,
+    "order": 7,
     "status": "tentative"
   },
   {
     "id": "d1-9",
     "dayId": 1,
     "placeId": "kokonoe",
-    "order": 9,
+    "order": 8,
     "status": "tentative"
   },
   {
     "id": "d1-10",
     "dayId": 1,
     "placeId": "sensoji",
-    "order": 10,
+    "order": 9,
     "status": "tentative"
   },
   {
     "id": "d1-11",
     "dayId": 1,
     "placeId": "sumida",
-    "order": 11,
+    "order": 10,
     "status": "tentative"
   },
   {
     "id": "d1-12",
     "dayId": 1,
     "placeId": "skytree",
-    "order": 12,
+    "order": 11,
     "status": "optional"
   },
   {
     "id": "d1-13",
     "dayId": 1,
     "placeId": "gyuko",
-    "order": 13,
+    "order": 12,
     "status": "tentative"
   },
   {
@@ -324,14 +319,16 @@
     "dayId": 5,
     "placeId": "hotel-ueno",
     "order": 1,
-    "status": "tentative"
+    "status": "confirmed",
+    "notes": ["10:00 前退房，再前往京成上野站。"]
   },
   {
     "id": "d5-2",
     "dayId": 5,
-    "placeId": "hotel-asakusa",
+    "placeId": "keisei-ueno",
     "order": 2,
-    "status": "tentative"
+    "status": "tentative",
+    "notes": ["由飯店前往京成上野站，再搭京成本線前往成田市區。"]
   },
   {
     "id": "d5-3",

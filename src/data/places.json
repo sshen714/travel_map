@@ -55,23 +55,24 @@
   },
   {
     "id": "hotel-ueno",
-    "name": "上野住宿候選",
+    "name": "APA Hotel Ueno Inaricho Ekikita",
+    "nameJa": "アパホテル〈上野 稲荷町駅北〉",
     "category": "hotel",
-    "status": "tentative",
-    "coordinates": null,
+    "status": "confirmed",
+    "coordinates": [139.7826997, 35.71344762],
+    "address": "〒110-0015 東京都台東区東上野5-10-8",
     "dayIds": [1, 5],
-    "notes": ["尚未訂房；偏好單人套房，不考慮青年旅館。", "訂房後填入飯店名稱、地址與座標。"],
-    "reservationRequired": false
-  },
-  {
-    "id": "hotel-asakusa",
-    "name": "淺草住宿候選",
-    "category": "hotel",
-    "status": "tentative",
-    "coordinates": null,
-    "dayIds": [1, 5],
-    "notes": ["尚未訂房；偏好單人套房，不考慮青年旅館。", "訂房後填入飯店名稱、地址與座標。"],
-    "reservationRequired": false
+    "notes": [
+      "東京 Metro 銀座線稻荷町站 3 號出口步行約 3 分鐘。",
+      "JR 上野站入谷口步行約 6 分鐘；入住 15:00、退房 10:00。"
+    ],
+    "reservationRequired": false,
+    "externalLinks": [
+      {
+        "label": "APA Hotel 官方網站",
+        "url": "https://www.apahotel.com/hotel/syutoken/tokyo/ueno-inaricho/"
+      }
+    ]
   },
   {
     "id": "kaminarimon",

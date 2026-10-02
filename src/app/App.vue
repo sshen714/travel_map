@@ -91,18 +91,23 @@ onMounted(() => store.load())
             }}</span
             ><ChevronDown v-if="store.panelOpen" :size="18" /><ChevronUp v-else :size="18" />
           </button>
+          <PlaceDetails v-if="store.panelOpen" />
           <div class="panel-scroll"><RouterView /></div>
         </aside>
-        <section class="map-region" aria-label="互動行程地圖">
+        <section
+          :class="['map-region', { 'has-place-details': store.selectedPlaceId }]"
+          aria-label="互動行程地圖"
+        >
           <TripMap /><button
             v-if="fullMap"
             class="map-panel-toggle control"
             @click="store.panelOpen = !store.panelOpen"
           >
             <PanelLeftClose v-if="store.panelOpen" :size="17" /><PanelLeftOpen v-else :size="17" />
-            {{ store.panelOpen ? '收合行程' : '顯示行程' }}</button
-          ><PlaceDetails />
-        </section></main
+            {{ store.panelOpen ? '收合行程' : '顯示行程' }}
+          </button>
+        </section>
+        <PlaceDetails v-if="!store.panelOpen" /></main
     ></template>
     <div v-else class="loading-screen">正在展開你的東京旅程…</div>
   </div>

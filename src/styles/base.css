@@ -1174,7 +1174,7 @@ p {
   display: none;
 }
 .map-marker.is-selected {
-  z-index: 10;
+  z-index: 5;
 }
 .map-marker.is-selected .marker-dot {
   background: var(--marker-color);
@@ -1182,7 +1182,7 @@ p {
   box-shadow: 0 0 0 5px #ffffff20;
 }
 .map-marker:hover {
-  z-index: 11;
+  z-index: 6;
 }
 .map-marker:hover .marker-dot {
   transform: scale(1.15);
@@ -2273,6 +2273,13 @@ p {
     bottom: 12px;
     gap: 6px;
   }
+  .map-region.has-place-details .map-bottom {
+    display: none;
+  }
+  .map-region.has-place-details .map-switches,
+  .map-region.has-place-details .map-controls {
+    display: none;
+  }
   .map-legend {
     display: none;
   }
@@ -2302,14 +2309,20 @@ p {
     min-height: 34px;
   }
   .place-details {
-    position: fixed;
-    bottom: 77px;
+    position: absolute;
+    bottom: calc(77px + env(safe-area-inset-bottom));
     left: 13px;
     right: 13px;
     width: auto;
     max-height: 48dvh;
     z-index: 10;
     padding: 22px;
+  }
+  .panel-open .itinerary-panel .place-details {
+    position: static;
+    flex-shrink: 0;
+    margin: 0 13px 12px;
+    max-height: min(48dvh, calc(100% - 93px - env(safe-area-inset-bottom)));
   }
   .place-details h2 {
     font-size: 22px;

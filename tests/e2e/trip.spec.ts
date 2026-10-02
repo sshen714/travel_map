@@ -39,6 +39,12 @@ async function openPanel(page: any) {
       await page.locator('.mobile-panel-toggle').click()
   }
 }
+async function closePanel(page: any) {
+  const button = page.locator('.mobile-panel-toggle')
+  if (await button.isVisible()) {
+    if ((await button.getAttribute('aria-expanded')) === 'true') await button.click()
+  }
+}
 async function openMapTools(page: any) {
   const button = page.getByRole('button', { name: '地圖工具', exact: true })
   if (await button.isVisible()) {
@@ -75,20 +81,30 @@ test('timeline, repeated place selection, missing coordinates, map markers and l
   await page.locator('#stop-d3-17 button').click()
   await expect(page.locator('#stop-d3-17 button')).toHaveAttribute('aria-pressed', 'true')
   await expect(page.getByRole('heading', { name: 'JR 上野站', exact: true })).toBeVisible()
+  if (await page.locator('.mobile-panel-toggle').isVisible()) {
+    const drawerToggle = (await page.locator('.mobile-panel-toggle').boundingBox())!
+    const details = (await page.locator('.place-details').boundingBox())!
+    const panelScroll = (await page.locator('.panel-scroll').boundingBox())!
+    expect(details.y).toBeGreaterThanOrEqual(drawerToggle.y + drawerToggle.height)
+    expect(details.y).toBeLessThanOrEqual(drawerToggle.y + drawerToggle.height + 16)
+    expect(details.y + details.height).toBeLessThanOrEqual(panelScroll.y)
+    await page.screenshot({
+      path: 'test-results/mobile-expanded-place-details.png',
+      fullPage: true,
+    })
+  }
   await page.getByRole('button', { name: '關閉地點資訊' }).click()
   await page.locator('#stop-d3-8 button').click()
   await expect(page.locator('.pending-location')).toBeVisible()
   await page.getByRole('button', { name: '關閉地點資訊' }).click()
-  if (await page.locator('.mobile-panel-toggle').isVisible())
-    await page.locator('.mobile-panel-toggle').click()
+  await closePanel(page)
   await openMapTools(page)
   await page.getByRole('button', { name: '縮放至目前行程' }).click()
   await page.getByRole('button', { name: '查看大船站', exact: true }).click()
   await expect(page.getByRole('heading', { name: '大船站', exact: true })).toBeVisible()
   await expect(page.locator('#stop-d3-2 button')).toHaveAttribute('aria-pressed', 'true')
   await page.getByRole('button', { name: '關閉地點資訊' }).click()
-  if (await page.locator('.mobile-panel-toggle').isVisible())
-    await page.locator('.mobile-panel-toggle').click()
+  await closePanel(page)
   await openMapTools(page)
   await page.getByRole('button', { name: '圖層設定', exact: true }).click()
   await page.getByLabel('候選地點', { exact: true }).uncheck()
@@ -105,8 +121,7 @@ test('mode switching retains selection and always-visible route overlays', async
   await openPanel(page)
   await page.locator('#stop-d2-2 button').click()
   await page.getByRole('button', { name: '關閉地點資訊' }).click()
-  if (await page.locator('.mobile-panel-toggle').isVisible())
-    await page.locator('.mobile-panel-toggle').click()
+  await closePanel(page)
   await openMapTools(page)
   await expect(page.locator('.map-route-label-subway')).toHaveText('G 銀座線')
   await expect(page.locator('.transit-toggle')).toHaveCount(0)
@@ -158,10 +173,21 @@ test('geographic map labels JR and Skyliner routes', async ({ page }) => {
   // The three Ueno markers may overlap at this zoom, so dispatch straight to the button.
   await page.getByRole('button', { name: '查看京成上野站' }).dispatchEvent('click')
   await expect(page.locator('.ueno-transfer-label')).toBeVisible()
+  if (await page.locator('.mobile-panel-toggle').isVisible()) {
+    await expect(page.locator('.mobile-panel-toggle')).toHaveAttribute('aria-expanded', 'false')
+    await expect(page.locator('.map-bottom')).toBeHidden()
+    await expect(page.locator('.map-switches')).toBeHidden()
+    await expect(page.locator('.map-controls')).toBeHidden()
+  }
   await page.screenshot({
     path: `test-results/${test.info().project.name}-skyliner-map.png`,
     fullPage: true,
   })
+  if (await page.locator('.mobile-panel-toggle').isVisible()) {
+    await page.getByRole('button', { name: '關閉地點資訊' }).click()
+    await expect(page.locator('.map-switches')).toBeVisible()
+    await expect(page.locator('.map-controls')).toBeVisible()
+  }
   await page
     .getByRole('navigation', { name: '選擇旅程日期' })
     .getByRole('button', { name: /^Day 2 / })

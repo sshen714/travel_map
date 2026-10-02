@@ -487,6 +487,11 @@ function renderMarkers() {
         }
       }
       store.selectPlace(p.id)
+      if (window.innerWidth < 760) {
+        store.panelOpen = false
+        controlsOpen.value = false
+        layersOpen.value = false
+      }
     })
     markers.push(
       new maplibregl.Marker({ element: button, anchor: 'left' })
@@ -668,6 +673,7 @@ watch(
       map?.flyTo({
         center: p.coordinates,
         zoom: Math.max(map.getZoom(), isUenoStation(p.id) ? UENO_SELECTED_ZOOM : 14),
+        offset: window.innerWidth < 760 ? [0, -105] : [0, 0],
         duration: 700,
       })
   },
