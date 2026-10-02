@@ -14,15 +14,7 @@
     "placeId": "keisei-ueno",
     "order": 2,
     "status": "tentative",
-    "notes": ["搭 Skyliner 抵達；接著步行前往東京 Metro 上野站。"]
-  },
-  {
-    "id": "d1-3",
-    "dayId": 1,
-    "placeId": "metro-ueno",
-    "order": 3,
-    "status": "tentative",
-    "notes": ["由京成上野步行轉乘，接著前往飯店寄放行李；建議預留轉乘時間。"]
+    "notes": ["搭 Skyliner 抵達；接著步行約 15–20 分鐘前往飯店寄放行李。"]
   },
   {
     "id": "d1-4",
@@ -36,9 +28,17 @@
     "id": "d1-5",
     "dayId": 1,
     "placeId": "hotel-ueno",
-    "order": 4,
+    "order": 3,
     "status": "confirmed",
     "notes": ["先寄放行李；若客房已準備完成則辦理入住，正式入住時間為 15:00。"]
+  },
+  {
+    "id": "d1-6",
+    "dayId": 1,
+    "placeId": "inaricho",
+    "order": 4,
+    "status": "tentative",
+    "notes": ["從飯店步行約 3 分鐘到稻荷町站，搭銀座線前往淺草。"]
   },
   {
     "id": "d1-7",
@@ -263,7 +263,7 @@
     "placeId": "ueno",
     "order": 17,
     "status": "tentative",
-    "notes": ["返回東京；實際終點依住宿位置調整。"]
+    "notes": ["返回 JR 上野站，再步行約 6 分鐘回飯店。"]
   },
   {
     "id": "d4-1",

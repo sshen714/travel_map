@@ -95,10 +95,24 @@ describe('trip integrity', () => {
     expect(d.segments.find((segment) => segment.id === 'route-1')?.toPlaceId).toBe('keisei-ueno')
     expect(d.segments.find((segment) => segment.id === 'route-3')).toMatchObject({
       fromPlaceId: 'keisei-ueno',
-      toPlaceId: 'metro-ueno',
+      toPlaceId: 'hotel-ueno',
       mode: 'walk',
     })
-    expect(d.segments.find((segment) => segment.id === 'route-4')?.fromPlaceId).toBe('metro-ueno')
+    expect(d.segments.find((segment) => segment.id === 'route-2')).toMatchObject({
+      fromPlaceId: 'hotel-ueno',
+      toPlaceId: 'inaricho',
+      mode: 'walk',
+    })
+    expect(d.segments.find((segment) => segment.id === 'route-4')).toMatchObject({
+      fromPlaceId: 'inaricho',
+      toPlaceId: 'asakusa-station',
+      mode: 'subway',
+    })
+    expect(d.stops.find((stop) => stop.id === 'd1-3')).toBeUndefined()
+    expect(d.stops.find((stop) => stop.id === 'd1-6')?.placeId).toBe('inaricho')
+    expect(
+      read('transit-network.json').stations.find((station: any) => station.id === 'nippori'),
+    ).not.toHaveProperty('journey')
   })
 
   it('keeps transit station notes linked to valid lines, places and trip days', () => {

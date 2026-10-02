@@ -65,15 +65,34 @@ const scroller = ref<HTMLDivElement>()
 const selectedStation = ref<TransitStation>()
 const zoom = ref(1)
 const baseSize = ref({ width: 1100, height: 720 })
+const viewportSize = ref({ width: 0, height: 0 })
 const dragging = ref(false)
+const MIN_ZOOM = 0.5
+const MAX_ZOOM = 2.5
+const ZOOM_STEP = 0.25
 const mapSize = computed(() => ({
   width: Math.round(baseSize.value.width * zoom.value),
   height: Math.round(baseSize.value.height * zoom.value),
+}))
+const mapStyle = computed(() => ({
+  width: `${mapSize.value.width}px`,
+  height: `${mapSize.value.height}px`,
+  marginLeft: `${Math.max(0, (viewportSize.value.width - mapSize.value.width) / 2)}px`,
+  marginTop: `${Math.max(0, (viewportSize.value.height - mapSize.value.height) / 2)}px`,
 }))
 const selectedStationId = computed(() => selectedStation.value?.id)
 const selectedLines = computed(() =>
   lines.filter((line) => selectedStation.value?.lines.includes(line.id)),
 )
+const legendGroups = [
+  { label: 'JR', lineIds: ['yamanote', 'chuo-sobu', 'yokosuka'] },
+  { label: 'Metro', lineIds: ['ginza'] },
+  { label: '京成', lineIds: ['skyliner', 'keisei'] },
+  { label: '湘南・鎌倉', lineIds: ['shonan-monorail', 'enoden'] },
+].map((group) => ({
+  label: group.label,
+  lines: group.lineIds.map((id) => lines.find((line) => line.id === id)!),
+}))
 const selectedDay = computed(() =>
   store.selectedDayId === 'all' ? undefined : store.selectedDayId,
 )
@@ -131,6 +150,7 @@ function updateBaseSize() {
   if (!scroller.value) return
   const width = scroller.value.clientWidth
   const height = scroller.value.clientHeight
+  viewportSize.value = { width, height }
   const minimumWidth = window.innerWidth < 760 ? 860 : 760
   const scale = Math.max(Math.min(width / 1100, height / 720), minimumWidth / 1100)
   baseSize.value = { width: Math.round(1100 * scale), height: Math.round(720 * scale) }
@@ -139,13 +159,17 @@ function updateBaseSize() {
 async function setZoom(next: number) {
   const el = scroller.value
   const oldSize = mapSize.value
-  const centerX = el ? (el.scrollLeft + el.clientWidth / 2) / oldSize.width : 0.5
-  const centerY = el ? (el.scrollTop + el.clientHeight / 2) / oldSize.height : 0.5
-  zoom.value = Math.min(2.4, Math.max(1, Number(next.toFixed(2))))
+  const oldOffsetX = el ? Math.max(0, (el.clientWidth - oldSize.width) / 2) : 0
+  const oldOffsetY = el ? Math.max(0, (el.clientHeight - oldSize.height) / 2) : 0
+  const centerX = el ? (el.scrollLeft + el.clientWidth / 2 - oldOffsetX) / oldSize.width : 0.5
+  const centerY = el ? (el.scrollTop + el.clientHeight / 2 - oldOffsetY) / oldSize.height : 0.5
+  zoom.value = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, Number(next.toFixed(2))))
   await nextTick()
   if (el) {
-    el.scrollLeft = centerX * mapSize.value.width - el.clientWidth / 2
-    el.scrollTop = centerY * mapSize.value.height - el.clientHeight / 2
+    const newOffsetX = Math.max(0, (el.clientWidth - mapSize.value.width) / 2)
+    const newOffsetY = Math.max(0, (el.clientHeight - mapSize.value.height) / 2)
+    el.scrollLeft = newOffsetX + centerX * mapSize.value.width - el.clientWidth / 2
+    el.scrollTop = newOffsetY + centerY * mapSize.value.height - el.clientHeight / 2
   }
 }
 
@@ -220,7 +244,7 @@ onBeforeUnmount(() => resizeObserver?.disconnect())
       <svg
         class="transit-diagram-map"
         :viewBox="viewBox"
-        :style="{ width: `${mapSize.width}px`, height: `${mapSize.height}px` }"
+        :style="mapStyle"
         role="img"
         aria-labelledby="transit-diagram-title transit-diagram-description"
       >
@@ -335,8 +359,8 @@ onBeforeUnmount(() => resizeObserver?.disconnect())
       <button
         class="icon-button"
         aria-label="放大交通圖"
-        :disabled="zoom >= 2.4"
-        @click="setZoom(zoom + 0.25)"
+        :disabled="zoom >= MAX_ZOOM"
+        @click="setZoom(zoom + ZOOM_STEP)"
       >
         <Plus :size="18" />
       </button>
@@ -347,8 +371,8 @@ onBeforeUnmount(() => resizeObserver?.disconnect())
       <button
         class="icon-button"
         aria-label="縮小交通圖"
-        :disabled="zoom <= 1"
-        @click="setZoom(zoom - 0.25)"
+        :disabled="zoom <= MIN_ZOOM"
+        @click="setZoom(zoom - ZOOM_STEP)"
       >
         <Minus :size="18" />
       </button>
@@ -397,14 +421,20 @@ onBeforeUnmount(() => resizeObserver?.disconnect())
     </aside>
 
     <div class="transit-diagram-legend">
-      <span v-for="line in lines" :key="line.id">
-        <i :style="{ background: line.color }" />{{ line.shortName }}
-      </span>
-      <span class="transfer-key"><i class="transfer-symbol" />站內轉乘</span>
-      <span class="transfer-key"><i class="walk-symbol" />步行轉乘</span>
+      <div v-for="group in legendGroups" :key="group.label" class="transit-legend-group">
+        <strong>{{ group.label }}</strong>
+        <span v-for="line in group.lines" :key="line.id">
+          <i :style="{ background: line.color }" />{{ line.shortName }}
+        </span>
+      </div>
+      <div class="transit-legend-group transit-transfer-group">
+        <strong>轉乘</strong>
+        <span class="transfer-key"><i class="transfer-symbol" />站內</span>
+        <span class="transfer-key"><i class="walk-symbol" />步行</span>
+      </div>
     </div>
     <p class="transit-diagram-note">
-      <Hand :size="14" /> 拖曳與縮放查看路網 · 125% 顯示次要站 · 點擊車站查看用途
+      <Hand :size="14" /> 可縮放 50%–250% · 100% 為適合視窗 · 125% 顯示次要站
     </p>
   </section>
 </template>

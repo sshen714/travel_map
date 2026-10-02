@@ -30,7 +30,18 @@
     "status": "tentative",
     "coordinates": [139.775972, 35.71175],
     "dayIds": [1],
-    "notes": ["銀座線 G16／日比谷線 H18；Day 1 從這裡搭銀座線前往淺草。"],
+    "notes": ["銀座線 G16／日比谷線 H18；與 JR 上野站及京成上野站分開標示。"],
+    "reservationRequired": false
+  },
+  {
+    "id": "inaricho",
+    "name": "稻荷町站",
+    "nameJa": "稲荷町駅",
+    "category": "station",
+    "status": "tentative",
+    "coordinates": [139.7825, 35.7113],
+    "dayIds": [1],
+    "notes": ["東京 Metro 銀座線 G17；從飯店步行約 3 分鐘，Day 1 由此前往淺草。"],
     "reservationRequired": false
   },
   {

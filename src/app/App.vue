@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, defineAsyncComponent } from 'vue'
+import { computed, onMounted, defineAsyncComponent, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { Compass, ChevronUp, ChevronDown, PanelLeftClose, PanelLeftOpen } from '@lucide/vue'
 import { useTripStore } from '../stores/tripStore'
@@ -9,6 +9,12 @@ const TripMap = defineAsyncComponent(() => import('../components/map/TripMap.vue
 const store = useTripStore(),
   route = useRoute()
 const fullMap = computed(() => route.path === '/map')
+const desktopSidebarOpen = ref(true)
+const sidebarOpen = computed(() => (fullMap.value ? store.panelOpen : desktopSidebarOpen.value))
+function toggleSidebar() {
+  if (fullMap.value) store.panelOpen = !store.panelOpen
+  else desktopSidebarOpen.value = !desktopSidebarOpen.value
+}
 onMounted(() => {
   localStorage.removeItem('tokyo-trip-theme')
   store.load()
@@ -32,8 +38,13 @@ onMounted(() => {
         <div class="toolbar-label">旅程日曆<span>YOUR JOURNEY</span></div>
         <DaySelector /><span class="timezone">日本時間 <b>UTC+9</b></span>
       </div>
-      <main :class="['workspace', { 'full-map': fullMap, 'panel-open': store.panelOpen }]">
-        <aside class="itinerary-panel" aria-label="行程面板">
+      <main
+        :class="[
+          'workspace',
+          { 'full-map': fullMap, 'panel-open': store.panelOpen, 'sidebar-open': sidebarOpen },
+        ]"
+      >
+        <aside id="itinerary-panel" class="itinerary-panel" aria-label="行程面板">
           <button
             class="mobile-panel-toggle"
             :aria-expanded="store.panelOpen"
@@ -44,7 +55,7 @@ onMounted(() => {
             }}</span
             ><ChevronDown v-if="store.panelOpen" :size="18" /><ChevronUp v-else :size="18" />
           </button>
-          <PlaceDetails v-if="store.panelOpen" />
+          <PlaceDetails v-if="store.panelOpen && sidebarOpen" />
           <div class="panel-scroll"><RouterView /></div>
         </aside>
         <section
@@ -52,15 +63,17 @@ onMounted(() => {
           aria-label="互動行程地圖"
         >
           <TripMap /><button
-            v-if="fullMap"
             class="map-panel-toggle control"
-            @click="store.panelOpen = !store.panelOpen"
+            type="button"
+            aria-controls="itinerary-panel"
+            :aria-expanded="sidebarOpen"
+            @click="toggleSidebar"
           >
-            <PanelLeftClose v-if="store.panelOpen" :size="17" /><PanelLeftOpen v-else :size="17" />
-            {{ store.panelOpen ? '收合行程' : '顯示行程' }}
+            <PanelLeftClose v-if="sidebarOpen" :size="17" /><PanelLeftOpen v-else :size="17" />
+            {{ sidebarOpen ? '收合行程' : '顯示行程' }}
           </button>
         </section>
-        <PlaceDetails v-if="!store.panelOpen" /></main
+        <PlaceDetails v-if="!store.panelOpen || !sidebarOpen" /></main
     ></template>
     <div v-else class="loading-screen">正在展開你的東京旅程…</div>
   </div>

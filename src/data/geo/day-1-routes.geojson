@@ -25,7 +25,21 @@
         "type": "LineString",
         "coordinates": [
           [139.7735, 35.71094],
-          [139.775972, 35.71175]
+          [139.7826997, 35.71344762]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "route-2",
+      "properties": {
+        "id": "route-2"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [139.7826997, 35.71344762],
+          [139.7825, 35.7113]
         ]
       }
     },
@@ -38,7 +52,7 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [139.775972, 35.71175],
+          [139.7825, 35.7113],
           [139.7984, 35.7107]
         ]
       }

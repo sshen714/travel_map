@@ -39,18 +39,20 @@ let map: MapInstance | undefined,
   markers: Marker[] = [],
   routeLabels: Marker[] = [],
   uenoClusterMarker: Marker | undefined,
+  uenoTransferOverlay: SVGSVGElement | undefined,
+  uenoTransferLines: [SVGLineElement, SVGLineElement][] = [],
   resizeObserver: ResizeObserver | undefined,
   styleRequest = 0,
   disposed = false,
   initialFit = false,
   styleReady = false,
   externalStyle = false,
-  uenoManuallyExpandedAt: number | undefined
+  transferFrame: number | undefined,
+  uenoManuallyExpanded = false
 const hasPoints = computed(() => store.focusedPlaces.some((p) => p.coordinates))
 const UENO_STATION_IDS = ['ueno', 'metro-ueno', 'keisei-ueno'] as const
-const UENO_EXPANDED_ZOOM = 13
-const UENO_GEOGRAPHIC_ZOOM = 5
-const UENO_SELECTED_ZOOM = 15 // zoom used when a Ueno station is picked
+const UENO_EXPANDED_ZOOM = 12
+const UENO_SELECTED_ZOOM = 10 // zoom used when a Ueno station is picked
 const MARKER_LABEL_MIN_ZOOM = 10 // zoomed out further than this, markers show only their dot
 const uenoFanOffsets: Record<(typeof UENO_STATION_IDS)[number], [number, number]> = {
   ueno: [0, -34],
@@ -78,7 +80,7 @@ const subwaySegments = [
     segmentId: 'route-4',
     days: [1],
     coordinates: [
-      [139.775972, 35.71175],
+      [139.7825, 35.7113],
       [139.7984, 35.7107],
     ],
   },
@@ -122,56 +124,86 @@ function uenoGroupCenter(): [number, number] {
 function isUenoGroupExpanded() {
   return (
     !showsUenoGroup.value ||
-    uenoManuallyExpandedAt !== undefined ||
+    uenoManuallyExpanded ||
     (map?.getZoom() || 0) >= UENO_EXPANDED_ZOOM ||
     (store.selectedPlaceId !== null && isUenoStation(store.selectedPlaceId))
   )
 }
 function expandUenoGroup() {
-  uenoManuallyExpandedAt = map?.getZoom()
+  uenoManuallyExpanded = true
+  if (map && map.getZoom() < UENO_SELECTED_ZOOM)
+    map.easeTo({ center: uenoGroupCenter(), zoom: UENO_SELECTED_ZOOM, duration: 600 })
   updateMarkerLabels()
 }
 function uenoFanOffset(marker: Marker): [number, number] {
   const id = marker.getElement().dataset.placeId
   if (
-    !map ||
     !id ||
     !isUenoStation(id) ||
     !showsUenoGroup.value ||
-    map.getZoom() >= UENO_GEOGRAPHIC_ZOOM
+    !map ||
+    map.getZoom() >= UENO_EXPANDED_ZOOM
   )
     return [0, 0]
-  const center = map.project(uenoGroupCenter())
-  const point = map.project(marker.getLngLat())
-  const [x, y] = uenoFanOffsets[id]
-  return [center.x + x - point.x, center.y + y - point.y]
+  return uenoFanOffsets[id]
 }
-function uenoTransferData(): FeatureCollection<LineString> {
-  if (!showsUenoGroup.value) return { type: 'FeatureCollection', features: [] }
-  const coordinates = Object.fromEntries(
-    uenoGroupPlaces().map((place) => [place.id, place.coordinates!]),
-  )
-  return {
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        properties: { id: 'keisei-metro-ueno-transfer' },
-        geometry: {
-          type: 'LineString',
-          coordinates: [coordinates['keisei-ueno']!, coordinates['metro-ueno']!],
-        },
-      },
-      {
-        type: 'Feature',
-        properties: { id: 'metro-jr-ueno-transfer' },
-        geometry: {
-          type: 'LineString',
-          coordinates: [coordinates['metro-ueno']!, coordinates.ueno!],
-        },
-      },
-    ],
+function renderUenoTransfers() {
+  if (!map || uenoTransferOverlay) return
+  const overlay = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  overlay.classList.add('ueno-transfer-overlay')
+  overlay.setAttribute('aria-hidden', 'true')
+  for (let index = 0; index < 2; index++) {
+    const halo = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+    halo.classList.add('ueno-transfer-halo')
+    line.classList.add('ueno-transfer-line')
+    overlay.append(halo, line)
+    uenoTransferLines.push([halo, line])
   }
+  map.getCanvasContainer().append(overlay)
+  uenoTransferOverlay = overlay
+}
+function updateUenoTransferLines() {
+  if (!map || !uenoTransferOverlay) return
+  const visible = showsUenoGroup.value && isUenoGroupExpanded()
+  uenoTransferOverlay.style.display = visible ? '' : 'none'
+  if (!visible) return
+  const canvasRect = map.getCanvasContainer().getBoundingClientRect()
+  const markerPosition = (id: (typeof UENO_STATION_IDS)[number]) => {
+    const dot = markers
+      .find((marker) => marker.getElement().dataset.placeId === id)
+      ?.getElement()
+      .querySelector('.marker-dot')
+    if (!dot) return null
+    const rect = dot.getBoundingClientRect()
+    return [
+      rect.left + rect.width / 2 - canvasRect.left,
+      rect.top + rect.height / 2 - canvasRect.top,
+    ]
+  }
+  const links = [
+    [markerPosition('keisei-ueno'), markerPosition('metro-ueno')],
+    [markerPosition('metro-ueno'), markerPosition('ueno')],
+  ]
+  if (links.some(([from, to]) => !from || !to)) {
+    uenoTransferOverlay.style.display = 'none'
+    return
+  }
+  links.forEach(([from, to], index) => {
+    for (const line of uenoTransferLines[index]!) {
+      line.setAttribute('x1', String(from![0]))
+      line.setAttribute('y1', String(from![1]))
+      line.setAttribute('x2', String(to![0]))
+      line.setAttribute('y2', String(to![1]))
+    }
+  })
+}
+function scheduleUenoTransferLines() {
+  if (transferFrame !== undefined) return
+  transferFrame = requestAnimationFrame(() => {
+    transferFrame = undefined
+    updateUenoTransferLines()
+  })
 }
 function routeData(): FeatureCollection<LineString> {
   const features = store.data!.geo.flatMap((g) => g.features)
@@ -198,20 +230,20 @@ function routeData(): FeatureCollection<LineString> {
     }),
   }
 }
-function midpoint(coordinates: number[][]): [number, number] {
+function pointAlong(coordinates: number[][], fraction = 0.5): [number, number] {
   if (coordinates.length < 2) return coordinates[0] as [number, number]
   const lengths = coordinates.slice(1).map((point, index) => {
     const previous = coordinates[index]!
     return Math.hypot(point[0]! - previous[0]!, point[1]! - previous[1]!)
   })
-  const halfway = lengths.reduce((sum, length) => sum + length, 0) / 2
+  const target = lengths.reduce((sum, length) => sum + length, 0) * fraction
   let travelled = 0
   for (let index = 0; index < lengths.length; index++) {
     const length = lengths[index]!
-    if (travelled + length >= halfway) {
+    if (travelled + length >= target) {
       const start = coordinates[index]!
       const end = coordinates[index + 1]!
-      const ratio = length ? (halfway - travelled) / length : 0
+      const ratio = length ? (target - travelled) / length : 0
       return [start[0]! + (end[0]! - start[0]!) * ratio, start[1]! + (end[1]! - start[1]!) * ratio]
     }
     travelled += length
@@ -264,34 +296,6 @@ function renderSubwayOverlay() {
     })
   }
 }
-function renderUenoTransfers() {
-  if (!map || !styleReady) return
-  const source = map.getSource('ueno-transfers') as GeoJSONSource | undefined
-  if (source) source.setData(uenoTransferData())
-  else {
-    map.addSource('ueno-transfers', { type: 'geojson', data: uenoTransferData() })
-    map.addLayer({
-      id: 'ueno-transfer-halo',
-      type: 'line',
-      source: 'ueno-transfers',
-      minzoom: UENO_GEOGRAPHIC_ZOOM,
-      layout: { 'line-cap': 'round', 'line-join': 'round' },
-      paint: { 'line-color': '#ffffff', 'line-width': 7, 'line-opacity': 0.82 },
-    })
-    map.addLayer({
-      id: 'ueno-transfer-line',
-      type: 'line',
-      source: 'ueno-transfers',
-      minzoom: UENO_GEOGRAPHIC_ZOOM,
-      layout: { 'line-cap': 'round', 'line-join': 'round' },
-      paint: {
-        'line-color': '#52675b',
-        'line-width': 2.5,
-        'line-opacity': 0.76,
-      },
-    })
-  }
-}
 function renderRouteLabels() {
   if (!map) return
   routeLabels.forEach((label) => label.remove())
@@ -309,7 +313,7 @@ function renderRouteLabels() {
     label.style.setProperty('--route-label-color', segment.lineColor)
     routeLabels.push(
       new maplibregl.Marker({ element: label, anchor: 'center' })
-        .setLngLat(midpoint(feature.geometry.coordinates))
+        .setLngLat(pointAlong(feature.geometry.coordinates))
         .addTo(map),
     )
   }
@@ -321,21 +325,10 @@ function renderRouteLabels() {
     label.style.setProperty('--route-label-color', '#e69618')
     routeLabels.push(
       new maplibregl.Marker({ element: label, anchor: 'center' })
-        .setLngLat(midpoint(feature.geometry.coordinates))
-        .addTo(map),
-    )
-  }
-  if (showsUenoGroup.value) {
-    const label = document.createElement('span')
-    label.className = 'ueno-transfer-label'
-    label.textContent = '步行轉乘'
-    routeLabels.push(
-      new maplibregl.Marker({ element: label, anchor: 'center' })
         .setLngLat(
-          midpoint(
-            ['keisei-ueno', 'metro-ueno'].map(
-              (id) => uenoGroupPlaces().find((place) => place.id === id)!.coordinates!,
-            ),
+          pointAlong(
+            feature.geometry.coordinates,
+            feature.properties?.id === 'ginza-east' ? 0.72 : 0.5,
           ),
         )
         .addTo(map),
@@ -363,38 +356,37 @@ function renderRoutes() {
     })
   }
   renderSubwayOverlay()
-  renderUenoTransfers()
   renderRouteLabels()
-}
-// Markers are anchored at their left-middle edge; shift left by half the dot so the
-// dot's centre (not its corner) sits on the coordinate where route lines end.
-function centerDotOn(marker: Marker, [x, y]: [number, number]) {
-  const dot = marker.getElement().querySelector('.marker-dot') as HTMLElement | null
-  marker.setOffset([x - (dot?.offsetWidth || 0) / 2, y])
 }
 function updateMarkerLabels() {
   if (!map) return
-  // A clicked-open Ueno group folds back once the user zooms out past where they opened it.
-  if (uenoManuallyExpandedAt !== undefined && map.getZoom() < uenoManuallyExpandedAt - 0.75)
-    uenoManuallyExpandedAt = undefined
   const uenoExpanded = isUenoGroupExpanded()
-  const uenoGeographic = map.getZoom() >= UENO_GEOGRAPHIC_ZOOM
-  const compactRouteLabels = map.getZoom() < 11.5
+  const zoom = map.getZoom()
+  // Long rail lines (Skyliner, JR) span the whole day view, so label them early;
+  // the short Ginza overlay only gets its label once zoomed into the city.
+  const routeLabelMinZoom = (element: HTMLElement) =>
+    element.classList.contains('map-route-label-subway') ? 11.5 : 7
   uenoClusterMarker?.getElement().classList.toggle('is-map-hidden', uenoExpanded)
   uenoClusterMarker?.getElement().setAttribute('aria-expanded', String(uenoExpanded))
-  const showLabels = map.getZoom() >= MARKER_LABEL_MIN_ZOOM
-  if (uenoClusterMarker) centerDotOn(uenoClusterMarker, [0, 0])
+  const showLabels = zoom >= MARKER_LABEL_MIN_ZOOM
   routeLabels.forEach((label) => {
     const element = label.getElement()
-    element.classList.toggle(
-      'is-map-hidden',
-      element.classList.contains('ueno-transfer-label')
-        ? !uenoExpanded || !uenoGeographic
-        : compactRouteLabels,
-    )
+    element.classList.toggle('is-map-hidden', zoom < routeLabelMinZoom(element))
   })
-  const occupied: { x: number; y: number; width: number }[] = []
-  for (const marker of markers) {
+  const occupied: { left: number; right: number; top: number; bottom: number }[] = []
+  const prioritizedMarkers = [...markers].sort((a, b) => {
+    const priority = (marker: Marker) => {
+      const el = marker.getElement()
+      if (el.classList.contains('is-selected')) return 5
+      if (el.dataset.placeId === 'inaricho') return 4
+      if (el.dataset.placeId === 'hotel-ueno') return 3
+      if (el.dataset.uenoStation === 'true') return 2
+      if (el.dataset.placeId === 'asakusa-station') return 1
+      return 0
+    }
+    return priority(b) - priority(a)
+  })
+  for (const marker of prioritizedMarkers) {
     const el = marker.getElement()
     const uenoStation = el.dataset.uenoStation === 'true'
     const groupedUenoStation = uenoStation && showsUenoGroup.value
@@ -404,22 +396,55 @@ function updateMarkerLabels() {
         (uenoStation && !showsUenoGroup.value && el.classList.contains('dimmed')),
     )
     if (el.classList.contains('is-map-hidden')) continue
-    el.classList.toggle('compact', map.getZoom() < 11)
+    el.classList.toggle('compact', zoom < 11)
     const offset = uenoFanOffset(marker)
-    centerDotOn(marker, offset)
+    marker.setOffset(offset)
     const label = el.querySelector('.marker-label') as HTMLElement
+    label.style.display = ''
     const projected = map.project(marker.getLngLat())
     const point = { x: projected.x + offset[0], y: projected.y + offset[1] }
-    const width = Math.min(160, label.textContent!.length * 11 + 20)
+    const dot = el.querySelector('.marker-dot') as HTMLElement
+    const below = el.dataset.placeId === 'inaricho'
+    const width = label.offsetWidth
+    const height = label.offsetHeight
+    const bounds = below
+      ? {
+          left: point.x - width / 2,
+          right: point.x + width / 2,
+          top: point.y + dot.offsetHeight / 2 + 4,
+          bottom: point.y + dot.offsetHeight / 2 + 4 + height,
+        }
+      : {
+          left: point.x + dot.offsetWidth / 2 + 6,
+          right: point.x + dot.offsetWidth / 2 + 6 + width,
+          top: point.y - height / 2,
+          bottom: point.y + height / 2,
+        }
     const overlaps = occupied.some(
       (p) =>
-        Math.abs(p.y - point.y) < 30 && point.x < p.x + p.width + 15 && point.x + width + 15 > p.x,
+        bounds.left < p.right + 8 &&
+        bounds.right + 8 > p.left &&
+        bounds.top < p.bottom + 6 &&
+        bounds.bottom + 6 > p.top,
     )
     const selected = el.classList.contains('is-selected')
+    const isSecondaryLabel =
+      store.selectedDayId !== 'all' &&
+      !selected &&
+      !uenoStation &&
+      (el.dataset.placeId !== 'hotel-ueno' || window.innerWidth < 760) &&
+      el.dataset.placeId !== 'asakusa-station'
+    const labelMinZoom = window.innerWidth < 760 && el.dataset.placeId === 'hotel-ueno' ? 15 : 14
     label.style.display =
-      showLabels && (!overlaps || selected) && !el.classList.contains('dimmed') ? '' : 'none'
-    if (!overlaps || selected) occupied.push({ x: point.x, y: point.y, width })
+      showLabels &&
+      (!isSecondaryLabel || zoom >= labelMinZoom) &&
+      (!overlaps || selected) &&
+      !el.classList.contains('dimmed')
+        ? ''
+        : 'none'
+    if (label.style.display !== 'none') occupied.push(bounds)
   }
+  scheduleUenoTransferLines()
 }
 function renderMarkers() {
   if (!map) return
@@ -456,11 +481,14 @@ function renderMarkers() {
         : symbols[p.category] || '●'
     const label = document.createElement('span')
     label.className = 'marker-label'
-    label.textContent = uenoStation
-      ? uenoStationShortNames[p.id as (typeof UENO_STATION_IDS)[number]]
-      : p.category === 'station'
-        ? `車站 · ${p.name}`
-        : p.name
+    label.textContent =
+      p.id === 'inaricho'
+        ? 'G17 稻荷町站'
+        : uenoStation
+          ? uenoStationShortNames[p.id as (typeof UENO_STATION_IDS)[number]]
+          : p.category === 'station'
+            ? `車站 · ${p.name}`
+            : p.name
     if (p.id === 'metro-ueno') {
       const lineBadge = document.createElement('i')
       lineBadge.className = 'marker-line-badge line-ginza'
@@ -469,7 +497,7 @@ function renderMarkers() {
       label.prepend(lineBadge)
     }
     button.append(dot)
-    if (p.category === 'station' && showsStopOrder) {
+    if (p.category === 'station' && showsStopOrder && p.id !== 'inaricho') {
       const categoryBadge = document.createElement('span')
       categoryBadge.className = 'marker-category-badge'
       categoryBadge.textContent = '駅'
@@ -494,7 +522,7 @@ function renderMarkers() {
       }
     })
     markers.push(
-      new maplibregl.Marker({ element: button, anchor: 'left' })
+      new maplibregl.Marker({ element: button, anchor: 'center' })
         .setLngLat(p.coordinates)
         .addTo(map),
     )
@@ -513,7 +541,7 @@ function renderMarkers() {
       event.stopPropagation()
       expandUenoGroup()
     })
-    uenoClusterMarker = new maplibregl.Marker({ element: button, anchor: 'left' })
+    uenoClusterMarker = new maplibregl.Marker({ element: button, anchor: 'center' })
       .setLngLat(uenoGroupCenter())
       .addTo(map)
   }
@@ -592,6 +620,7 @@ onMounted(async () => {
       zoom: store.data!.trip.defaultViewport.zoom,
       attributionControl: { compact: true },
     })
+    renderUenoTransfers()
     map.on('style.load', () => {
       styleReady = true
       renderRoutes()
@@ -605,6 +634,15 @@ onMounted(async () => {
       if (externalStyle) loading.value = false
     })
     map.on('move', updateMarkerLabels)
+    // Markers reposition in their own 'move' listeners; 'render' fires after them,
+    // so reading the dots' screen positions here keeps the lines in step while panning.
+    map.on('render', updateUenoTransferLines)
+    map.on('zoomend', () => {
+      if (map && map.getZoom() < UENO_SELECTED_ZOOM - 0.5 && uenoManuallyExpanded) {
+        uenoManuallyExpanded = false
+        updateMarkerLabels()
+      }
+    })
     map.on('error', () => {
       mapError.value = '部分地圖內容未能載入；可重試底圖，或繼續查看行程。'
       loading.value = false
@@ -635,7 +673,10 @@ onMounted(async () => {
     map.on('mouseleave', 'subway-overlay-line', () => {
       if (map) map.getCanvas().style.cursor = ''
     })
-    resizeObserver = new ResizeObserver(() => map?.resize())
+    resizeObserver = new ResizeObserver(() => {
+      map?.resize()
+      scheduleUenoTransferLines()
+    })
     resizeObserver.observe(container.value!)
     await loadStyle()
   } catch {
@@ -660,7 +701,6 @@ watch(() => store.fitRequest, fit)
 watch(
   () => store.selectedDayId,
   () => {
-    uenoManuallyExpandedAt = undefined
     updateMarkerLabels()
   },
 )
@@ -695,6 +735,8 @@ onBeforeUnmount(() => {
   disposed = true
   styleRequest++
   resizeObserver?.disconnect()
+  if (transferFrame !== undefined) cancelAnimationFrame(transferFrame)
+  uenoTransferOverlay?.remove()
   markers.forEach((m) => m.remove())
   routeLabels.forEach((label) => label.remove())
   uenoClusterMarker?.remove()

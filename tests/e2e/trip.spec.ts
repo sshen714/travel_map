@@ -172,13 +172,14 @@ test('geographic map labels JR and Skyliner routes', async ({ page }) => {
   await expect(page.locator('.operator-metro-ueno .marker-line-badge')).toHaveText('G')
   // The three Ueno markers may overlap at this zoom, so dispatch straight to the button.
   await page.getByRole('button', { name: '查看京成上野站' }).dispatchEvent('click')
-  await expect(page.locator('.ueno-transfer-label')).toBeVisible()
+  await expect(page.locator('.ueno-transfer-label')).toHaveCount(0)
   if (await page.locator('.mobile-panel-toggle').isVisible()) {
     await expect(page.locator('.mobile-panel-toggle')).toHaveAttribute('aria-expanded', 'false')
     await expect(page.locator('.map-bottom')).toBeHidden()
     await expect(page.locator('.map-switches')).toBeHidden()
     await expect(page.locator('.map-controls')).toBeHidden()
   }
+  await page.waitForTimeout(1200)
   await page.screenshot({
     path: `test-results/${test.info().project.name}-skyliner-map.png`,
     fullPage: true,
@@ -195,6 +196,35 @@ test('geographic map labels JR and Skyliner routes', async ({ page }) => {
   await expect(page.locator('.map-route-label-jr')).toHaveText('JR')
   await page.screenshot({
     path: `test-results/${test.info().project.name}-jr-map.png`,
+    fullPage: true,
+  })
+})
+test('Inaricho label sits below its station marker', async ({ page }) => {
+  await page
+    .getByRole('navigation', { name: '選擇旅程日期' })
+    .getByRole('button', { name: /^Day 1 / })
+    .click()
+  await openPanel(page)
+  await page.locator('#stop-d1-6 button').click()
+  await page.getByRole('button', { name: '關閉地點資訊' }).click()
+  await closePanel(page)
+  const marker = page.locator('.map-marker[data-place-id="inaricho"]')
+  const dot = marker.locator('.marker-dot')
+  const label = marker.locator('.marker-label')
+  await expect(label).toHaveText('G17 稻荷町站')
+  await expect(label).toBeVisible()
+  await expect(marker.locator('.marker-category-badge')).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '展開上野站群，包含 3 個車站' })).toBeVisible()
+  await expect(page.getByRole('button', { name: '查看JR 上野站' })).toBeHidden()
+  await expect
+    .poll(async () => {
+      const dotBox = await dot.boundingBox()
+      const labelBox = await label.boundingBox()
+      return !!dotBox && !!labelBox && labelBox.y >= dotBox.y + dotBox.height
+    })
+    .toBe(true)
+  await page.screenshot({
+    path: `test-results/${test.info().project.name}-inaricho-label.png`,
     fullPage: true,
   })
 })
@@ -221,13 +251,18 @@ test('transit diagram shows trip rail lines and opens station details', async ({
   expect(zoomedWidth).toBeGreaterThan(initialWidth)
   await page.getByRole('button', { name: '重設交通圖縮放' }).click()
   await expect(page.locator('.transit-zoom-controls')).toContainText('100%')
+  await page.getByRole('button', { name: '縮小交通圖' }).click()
+  await expect(page.locator('.transit-zoom-controls')).toContainText('75%')
+  const zoomedOutWidth = (await page.locator('.transit-diagram-map').boundingBox())!.width
+  expect(zoomedOutWidth).toBeLessThan(initialWidth)
+  await page.getByRole('button', { name: '重設交通圖縮放' }).click()
   await page.screenshot({
     path: `test-results/${test.info().project.name}-transit-layout.png`,
     fullPage: true,
   })
   await page.getByRole('button', { name: '查看上野交通資訊' }).click()
   await expect(page.getByRole('heading', { name: '上野', exact: true })).toBeVisible()
-  await expect(page.getByText(/最重要的交通樞紐/)).toBeVisible()
+  await expect(page.getByText(/飯店鄰近 JR 上野站與銀座線稻荷町站/)).toBeVisible()
   await page.screenshot({
     path: `test-results/${test.info().project.name}-transit-diagram.png`,
     fullPage: true,

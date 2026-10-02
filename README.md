@@ -36,7 +36,7 @@ npm run dev
 | `src/data/places.json`         | 唯一地點、分類、經緯度、狀態、備註     |
 | `src/data/stops.json`          | 每日造訪順序、選填時間、停留時間與狀態 |
 | `src/data/route-segments.json` | 交通方式、線名、圖層、起終點、幾何引用 |
-| `src/data/lodgings.json`       | 多個住宿候選、入住與退房日期           |
+| `src/data/lodgings.json`       | 已確認住宿、入住與退房日期             |
 | `src/data/geo/*.geojson`       | 各日交通示意線                         |
 
 新增停留點：新增或重用 Place → 建立 Stop → 加入該 Day 的 `stopIds` → 更新 Place 的 `dayIds`。同一地點可以一天造訪多次，請建立不同 Stop ID。時間軸依 `order` 排序。
