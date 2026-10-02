@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
         version: 8,
         sources: {},
         layers: [
-          { id: 'background', type: 'background', paint: { 'background-color': '#17211f' } },
+          { id: 'background', type: 'background', paint: { 'background-color': '#f7f7f2' } },
         ],
       }),
     }),
@@ -16,22 +16,21 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' })
   await expect(page.locator('.maplibregl-canvas')).toBeVisible({ timeout: 15_000 })
 })
-test('theme can switch between dark and light and keeps the preference', async ({ page }) => {
-  const root = page.locator('html')
-  await expect(root).toHaveAttribute('data-theme', 'dark')
-  await page.getByRole('button', { name: '切換為淺色主題' }).click()
-  await expect(root).toHaveAttribute('data-theme', 'light')
+test('the interface always uses the light theme', async ({ page }) => {
+  await expect(page.getByRole('button', { name: /切換為.+主題/ })).toHaveCount(0)
   await expect
-    .poll(() => page.evaluate(() => localStorage.getItem('tokyo-trip-theme')))
+    .poll(() => page.evaluate(() => getComputedStyle(document.documentElement).colorScheme))
     .toBe('light')
+  await page.evaluate(() => localStorage.setItem('tokyo-trip-theme', 'dark'))
   await page.reload({ waitUntil: 'domcontentloaded' })
-  await expect(root).toHaveAttribute('data-theme', 'light')
+  await expect
+    .poll(() => page.evaluate(() => getComputedStyle(document.documentElement).colorScheme))
+    .toBe('light')
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('tokyo-trip-theme'))).toBeNull()
   await page.screenshot({
     path: `test-results/${test.info().project.name}-light-theme.png`,
     fullPage: true,
   })
-  await page.getByRole('button', { name: '切換為深色主題' }).click()
-  await expect(root).toHaveAttribute('data-theme', 'dark')
 })
 async function openPanel(page: any) {
   if (await page.locator('.mobile-panel-toggle').isVisible()) {

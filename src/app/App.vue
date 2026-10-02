@@ -1,15 +1,7 @@
 <script setup lang="ts">
-import { computed, onMounted, defineAsyncComponent, ref, watch } from 'vue'
+import { computed, onMounted, defineAsyncComponent } from 'vue'
 import { useRoute } from 'vue-router'
-import {
-  Compass,
-  Sun,
-  Moon,
-  ChevronUp,
-  ChevronDown,
-  PanelLeftClose,
-  PanelLeftOpen,
-} from '@lucide/vue'
+import { Compass, ChevronUp, ChevronDown, PanelLeftClose, PanelLeftOpen } from '@lucide/vue'
 import { useTripStore } from '../stores/tripStore'
 import DaySelector from '../components/itinerary/DaySelector.vue'
 import PlaceDetails from '../components/itinerary/PlaceDetails.vue'
@@ -17,24 +9,10 @@ const TripMap = defineAsyncComponent(() => import('../components/map/TripMap.vue
 const store = useTripStore(),
   route = useRoute()
 const fullMap = computed(() => route.path === '/map')
-type Theme = 'dark' | 'light'
-const themeStorageKey = 'tokyo-trip-theme'
-const theme = ref<Theme>(localStorage.getItem(themeStorageKey) === 'light' ? 'light' : 'dark')
-const nextThemeLabel = computed(() =>
-  theme.value === 'dark' ? '切換為淺色主題' : '切換為深色主題',
-)
-watch(
-  theme,
-  (value) => {
-    document.documentElement.dataset.theme = value
-    localStorage.setItem(themeStorageKey, value)
-  },
-  { immediate: true },
-)
-function toggleTheme() {
-  theme.value = theme.value === 'dark' ? 'light' : 'dark'
-}
-onMounted(() => store.load())
+onMounted(() => {
+  localStorage.removeItem('tokyo-trip-theme')
+  store.load()
+})
 </script>
 <template>
   <div class="app-shell">
@@ -43,19 +21,7 @@ onMounted(() => store.load())
         ><span class="brand-mark"><Compass :size="23" :stroke-width="1.4" /></span
         ><span>東京慢遊<small>TOKYO FIELD NOTES</small></span></RouterLink
       >
-      <div class="header-actions">
-        <button
-          class="theme-toggle"
-          type="button"
-          :aria-label="nextThemeLabel"
-          :title="nextThemeLabel"
-          @click="toggleTheme"
-        >
-          <Sun v-if="theme === 'dark'" :size="17" />
-          <Moon v-else :size="17" />
-        </button>
-        <span class="header-note"><i /> 日本獨旅 <span>2027 / 01</span></span>
-      </div>
+      <span class="header-note"><i /> 日本獨旅 <span>2027 / 01</span></span>
     </header>
     <div v-if="store.error" class="fatal-error" role="alert">
       <h1>行程資料無法載入</h1>

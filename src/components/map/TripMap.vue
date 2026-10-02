@@ -583,8 +583,7 @@ onMounted(async () => {
             id: 'background',
             type: 'background',
             paint: {
-              'background-color':
-                document.documentElement.dataset.theme === 'light' ? '#f7f7f2' : '#17211f',
+              'background-color': '#f7f7f2',
             },
           },
         ],

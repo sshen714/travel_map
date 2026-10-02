@@ -1,23 +1,9 @@
 :root {
   font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-  color: #e6e9df;
-  background: #101917;
-  font-synthesis: none;
-  font-weight: 400;
-  --bg: #101917;
-  --panel: #151e1b;
-  --line: #ffffff12;
-  --line-strong: #ffffff20;
-  --muted: #93a29a;
-  --accent: #d4dcaf;
-  --surface: #16201c;
-  --surface-raised: #1b2721;
-  --shadow: 0 18px 50px #07100c42;
-  color-scheme: dark;
-}
-:root[data-theme='light'] {
   color: #21302a;
   background: #f5f5ef;
+  font-synthesis: none;
+  font-weight: 400;
   --bg: #f5f5ef;
   --panel: #f8f8f3;
   --line: #17302416;
@@ -121,26 +107,6 @@ p {
   backdrop-filter: blur(18px);
   position: relative;
   z-index: 10;
-}
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.theme-toggle {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  color: #cbd5bb;
-  border: 1px solid var(--line-strong);
-  border-radius: 50%;
-  background: #ffffff05;
-}
-.theme-toggle:hover {
-  color: #eff2e7;
-  border-color: #d4dcaf55;
-  background: #ffffff0b;
 }
 .brand {
   display: flex;
@@ -500,7 +466,7 @@ p {
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  background: #17211f;
+  background: #f7f7f2;
 }
 .map-canvas {
   position: absolute;
@@ -1605,242 +1571,232 @@ p {
   outline: 2px solid #d4dcaf;
   outline-offset: -2px;
 }
-:root[data-theme='light'] body {
+:root body {
   background: radial-gradient(circle at 15% 8%, #dfe8d7, transparent 34%), var(--bg);
 }
-:root[data-theme='light'] button:hover {
+:root button:hover {
   background-color: #213a2b0a;
 }
-:root[data-theme='light'] .app-header {
+:root .app-header {
   background: #fbfbf7ec;
 }
-:root[data-theme='light'] .brand-mark {
+:root .brand-mark {
   color: #536b43;
   border-color: #667d5060;
   background: radial-gradient(circle, #788b5f18, transparent 68%);
   box-shadow: inset 0 0 0 5px #31503803;
 }
-:root[data-theme='light'] .brand small,
-:root[data-theme='light'] .toolbar-label span {
+:root .brand small,
+:root .toolbar-label span {
   color: #73806b;
 }
-:root[data-theme='light'] .theme-toggle {
-  color: #435548;
-  background: #ffffffb8;
-  box-shadow: 0 5px 16px #2c46341a;
-}
-:root[data-theme='light'] .theme-toggle:hover {
-  color: #17271f;
-  border-color: #657a5566;
-  background: #ffffff;
-}
-:root[data-theme='light'] .header-note {
+:root .header-note {
   color: #69776d;
 }
-:root[data-theme='light'] .header-note span {
+:root .header-note span {
   color: #879289;
 }
-:root[data-theme='light'] .toolbar {
+:root .toolbar {
   background: linear-gradient(90deg, #f8f8f3, #f2f4ee);
 }
-:root[data-theme='light'] .day-selector button {
+:root .day-selector button {
   color: #5f6e66;
   border-color: #1e382617;
   background: #ffffff75;
 }
-:root[data-theme='light'] .day-selector button.active {
+:root .day-selector button.active {
   color: #26342d;
   background: color-mix(in srgb, var(--day-color, #72865d) 17%, #ffffff);
   box-shadow: 0 6px 18px #2d40351a;
 }
-:root[data-theme='light'] .day-selector button span,
-:root[data-theme='light'] .timezone,
-:root[data-theme='light'] .timezone b {
+:root .day-selector button span,
+:root .timezone,
+:root .timezone b {
   color: #718078;
 }
-:root[data-theme='light'] .itinerary-panel {
+:root .itinerary-panel {
   background:
     radial-gradient(circle at 8% 0%, #dfe9d8b8, transparent 30%),
     linear-gradient(180deg, #fafaf6, #f1f3ed);
 }
-:root[data-theme='light'] .panel-scroll {
+:root .panel-scroll {
   scrollbar-color: #b7c1b8 transparent;
 }
-:root[data-theme='light'] .panel-heading,
-:root[data-theme='light'] .route-list {
+:root .panel-heading,
+:root .route-list {
   border-color: #1d34251a;
 }
-:root[data-theme='light'] .eyebrow {
+:root .eyebrow {
   color: #61774d;
 }
-:root[data-theme='light'] .panel-heading p,
-:root[data-theme='light'] .trip-stats,
-:root[data-theme='light'] .day-card small,
-:root[data-theme='light'] .planning-note p,
-:root[data-theme='light'] .stop-body > small,
-:root[data-theme='light'] .segment small {
+:root .panel-heading p,
+:root .trip-stats,
+:root .day-card small,
+:root .planning-note p,
+:root .stop-body > small,
+:root .segment small {
   color: #69786f;
 }
-:root[data-theme='light'] .trip-stats span {
+:root .trip-stats span {
   border-color: #263e2b16;
   background: #ffffff9c;
 }
-:root[data-theme='light'] .year-badge {
+:root .year-badge {
   color: #52693f;
   border-color: #52693f32;
   background: #ffffff8f;
 }
-:root[data-theme='light'] .section-caption,
-:root[data-theme='light'] .panel-footer,
-:root[data-theme='light'] .day-progress small {
+:root .section-caption,
+:root .panel-footer,
+:root .day-progress small {
   color: #738179;
 }
-:root[data-theme='light'] .day-card {
+:root .day-card {
   border-color: #213b2912;
   background: linear-gradient(120deg, #ffffffd9, #edf1eaa8);
   box-shadow: inset 0 1px #ffffff;
 }
-:root[data-theme='light'] .day-card:hover {
+:root .day-card:hover {
   border-color: #334e392e;
   background: #ffffff;
 }
-:root[data-theme='light'] .day-card small span,
-:root[data-theme='light'] .stop-meta,
-:root[data-theme='light'] .stop-tags {
+:root .day-card small span,
+:root .stop-meta,
+:root .stop-tags {
   color: #73837a;
 }
-:root[data-theme='light'] .day-card > svg,
-:root[data-theme='light'] .stop-card > svg {
+:root .day-card > svg,
+:root .stop-card > svg {
   color: #607764;
 }
-:root[data-theme='light'] .planning-note {
+:root .planning-note {
   background: #e7ebdfc7;
   border-color: #66754e20;
 }
-:root[data-theme='light'] .planning-note h3,
-:root[data-theme='light'] .note-icon,
-:root[data-theme='light'] .day-nav {
+:root .planning-note h3,
+:root .note-icon,
+:root .day-nav {
   color: #566b43;
 }
-:root[data-theme='light'] .stop-card:hover,
-:root[data-theme='light'] .segment.selected {
+:root .stop-card:hover,
+:root .segment.selected {
   background: #24432e09;
 }
-:root[data-theme='light'] .stop-card.selected {
+:root .stop-card.selected {
   background: linear-gradient(110deg, #b9ca9d24, #ffffff6b);
   border-color: #70845d55;
 }
-:root[data-theme='light'] .stop-order {
+:root .stop-order {
   background: #ffffff;
   border-color: #314b3722;
   box-shadow: 0 5px 14px #2e43351a;
 }
-:root[data-theme='light'] .day-progress > span {
+:root .day-progress > span {
   background: #233c2b17;
 }
-:root[data-theme='light'] .day-nav a {
+:root .day-nav a {
   border-color: #2039281a;
 }
-:root[data-theme='light'] .control,
-:root[data-theme='light'] .map-context,
-:root[data-theme='light'] .route-disclaimer,
-:root[data-theme='light'] .map-message {
+:root .control,
+:root .map-context,
+:root .route-disclaimer,
+:root .map-message {
   color: #26352d;
   background: #fbfcf8e9;
   border-color: #334b3a26;
   box-shadow: 0 10px 28px #344a3c25;
   text-shadow: none;
 }
-:root[data-theme='light'] .map-context small,
-:root[data-theme='light'] .mode-toggle button,
-:root[data-theme='light'] .transit-toggle,
-:root[data-theme='light'] .map-legend,
-:root[data-theme='light'] .layer-panel label,
-:root[data-theme='light'] .layer-panel p,
-:root[data-theme='light'] .segment-detail p {
+:root .map-context small,
+:root .mode-toggle button,
+:root .transit-toggle,
+:root .map-legend,
+:root .layer-panel label,
+:root .layer-panel p,
+:root .segment-detail p {
   color: #617068;
 }
-:root[data-theme='light'] .mode-toggle button.active,
-:root[data-theme='light'] .transit-toggle.active {
+:root .mode-toggle button.active,
+:root .transit-toggle.active {
   color: #ffffff;
   background: #445b49;
   border-color: #445b49;
 }
-:root[data-theme='light'] .icon-button {
+:root .icon-button {
   color: #43584b;
 }
-:root[data-theme='light'] .legend-candidate {
+:root .legend-candidate {
   color: #6d7a72;
   border-color: #203a2926;
 }
-:root[data-theme='light'] .marker-dot {
+:root .marker-dot {
   background: #ffffffed;
   box-shadow: 0 2px 9px #263c2e38;
 }
-:root[data-theme='light'] .map-control-items {
+:root .map-control-items {
   background: #fbfcf8f2;
   border-color: #334b3a26;
   box-shadow: 0 12px 30px #344a3c2e;
 }
-:root[data-theme='light'] .mobile-map-tools,
-:root[data-theme='light'] .mobile-basemap-toggle button {
+:root .mobile-map-tools,
+:root .mobile-basemap-toggle button {
   color: #4f6256;
 }
-:root[data-theme='light'] .mobile-basemap-toggle button.active {
+:root .mobile-basemap-toggle button.active {
   color: #ffffff;
   background: #445b49;
 }
-:root[data-theme='light'] .map-marker.candidate .marker-dot {
+:root .map-marker.candidate .marker-dot {
   color: color-mix(in srgb, var(--marker-color) 62%, #26352d);
   border-color: color-mix(in srgb, var(--marker-color) 70%, #26352d);
 }
-:root[data-theme='light'] .map-marker.ueno-station-marker .marker-dot {
+:root .map-marker.ueno-station-marker .marker-dot {
   color: var(--operator-color);
   border-color: var(--operator-color);
   background: #ffffffed;
 }
-:root[data-theme='light'] .ueno-cluster-marker .marker-dot {
+:root .ueno-cluster-marker .marker-dot {
   color: #ffffff;
   background: #445b49;
   border-color: #d8e3d2;
 }
-:root[data-theme='light'] .ueno-transfer-label {
+:root .ueno-transfer-label {
   color: #ffffff;
   background: #445b49f2;
   border-color: #ffffff;
 }
-:root[data-theme='light'] .marker-label {
+:root .marker-label {
   color: #26362d;
   background: #fffffff0;
   border-color: #314c3820;
   box-shadow: 0 2px 9px #263c2e26;
 }
-:root[data-theme='light'] .map-route-label {
+:root .map-route-label {
   color: #ffffff;
   background: #26372ef2;
   box-shadow: 0 3px 10px #263c2e38;
 }
-:root[data-theme='light'] .place-details {
+:root .place-details {
   color: #21302a;
   background: #fffffff5;
   border-color: #4d674250;
   box-shadow: 0 24px 70px #263a2e30;
 }
-:root[data-theme='light'] .detail-tags,
-:root[data-theme='light'] .place-details ul,
-:root[data-theme='light'] .place-details p {
+:root .detail-tags,
+:root .place-details ul,
+:root .place-details p {
   color: #5f6f65;
 }
-:root[data-theme='light'] .text-link {
+:root .text-link {
   color: #4b633d;
 }
-:root[data-theme='light'] .mobile-panel-toggle {
+:root .mobile-panel-toggle {
   color: #2d4035;
 }
-:root[data-theme='light'] .drawer-handle {
+:root .drawer-handle {
   background: #829377;
 }
-:root[data-theme='light'] .transit-diagram {
+:root .transit-diagram {
   --diagram-bg: #f7f7f2;
   --diagram-grid: #24402d0b;
   --diagram-text: #26362e;
@@ -1850,37 +1806,37 @@ p {
     radial-gradient(circle at 78% 16%, #dce8d7ad, transparent 28%),
     radial-gradient(circle at 24% 72%, #e5e9d9bd, transparent 32%), var(--diagram-bg);
 }
-:root[data-theme='light'] .transit-line {
+:root .transit-line {
   filter: drop-shadow(0 3px 3px #344a3924);
 }
-:root[data-theme='light'] .transit-station:hover + .station-name,
-:root[data-theme='light'] .transit-station:focus-visible + .station-name,
-:root[data-theme='light'] .station-name.selected {
+:root .transit-station:hover + .station-name,
+:root .transit-station:focus-visible + .station-name,
+:root .station-name.selected {
   fill: #9a5a00;
 }
-:root[data-theme='light'] .transit-zoom-controls span,
-:root[data-theme='light'] .transit-line-chips span,
-:root[data-theme='light'] .transit-detail-block p {
+:root .transit-zoom-controls span,
+:root .transit-line-chips span,
+:root .transit-detail-block p {
   color: #627168;
 }
-:root[data-theme='light'] .transit-line-chips span {
+:root .transit-line-chips span {
   border-color: #263f2d18;
 }
-:root[data-theme='light'] .transit-detail-block h3 {
+:root .transit-detail-block h3 {
   color: #2b3d32;
 }
-:root[data-theme='light'] .transit-tip {
+:root .transit-tip {
   color: #53645a;
   background: #25442e0a;
 }
-:root[data-theme='light'] .transit-place-link {
+:root .transit-place-link {
   color: #ffffff;
   background: #445b49;
 }
-:root[data-theme='light'] .transit-place-link:hover {
+:root .transit-place-link:hover {
   background: #354b3b;
 }
-:root[data-theme='light'] .transit-diagram-legend {
+:root .transit-diagram-legend {
   color: var(--diagram-muted);
   background: #ffffffe8;
   border-color: #3048371f;
@@ -1974,13 +1930,6 @@ p {
   }
   .brand small {
     display: none;
-  }
-  .header-actions {
-    gap: 0;
-  }
-  .theme-toggle {
-    width: 32px;
-    height: 32px;
   }
   .toolbar {
     height: 54px;
