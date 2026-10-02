@@ -3,8 +3,6 @@ import { computed, onMounted, defineAsyncComponent, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import {
   Compass,
-  Map,
-  Route,
   Sun,
   Moon,
   ChevronUp,
@@ -45,17 +43,6 @@ onMounted(() => store.load())
         ><span class="brand-mark"><Compass :size="23" :stroke-width="1.4" /></span
         ><span>東京慢遊<small>TOKYO FIELD NOTES</small></span></RouterLink
       >
-      <nav class="main-nav" aria-label="主要導覽">
-        <RouterLink to="/" :class="{ current: route.path === '/' }"
-          ><Route :size="15" /> 旅程總覽</RouterLink
-        ><RouterLink
-          :to="`/day/${store.selectedDayId === 'all' ? 1 : store.selectedDayId}`"
-          :class="{ current: route.path.startsWith('/day/') }"
-          >每日行程</RouterLink
-        ><RouterLink to="/map" :class="{ current: fullMap }"
-          ><Map :size="15" /> 探索地圖</RouterLink
-        >
-      </nav>
       <div class="header-actions">
         <button
           class="theme-toggle"

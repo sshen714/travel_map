@@ -52,6 +52,7 @@ async function openMapTools(page: any) {
   }
 }
 test('five days, daily page reload, invalid route and responsive layout', async ({ page }) => {
+  await expect(page.getByRole('navigation', { name: '主要導覽' })).toHaveCount(0)
   await openPanel(page)
   await expect(page.locator('.day-card')).toHaveCount(5)
   await page
@@ -267,7 +268,7 @@ test('tile failure keeps itinerary usable and can retry', async ({ page }) => {
 })
 
 test('full map panel and previous/next day navigation', async ({ page }) => {
-  await page.getByRole('link', { name: '探索地圖', exact: true }).click()
+  await page.goto('/#/map', { waitUntil: 'domcontentloaded' })
   await expect(page).toHaveURL(/#\/map/)
   if (await page.locator('.mobile-panel-toggle').isVisible()) {
     await openPanel(page)
